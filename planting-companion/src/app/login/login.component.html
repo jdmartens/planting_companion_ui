@@ -2,9 +2,9 @@
   <div class="form-group">
     <label for="email">Email</label>
     <input type="email" id="email" formControlName="email">
-    <div *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched">
-      Valid email is required
-    </div>
+    @if (loginForm.controls.email.invalid && loginForm.controls.email.touched) {
+      <div>Valid email is required</div>
+    }
   </div>
 
   <div class="form-group">
