@@ -11,7 +11,7 @@ export interface LoginResponse {
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
-  private readonly apiUrl = 'http://your-api-url/api';
+  private readonly apiUrl = 'http://127.0.0.1:8000';
 
   login(email: string, password: string) {
     const formData = new FormData();
