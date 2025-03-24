@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface LoginResponse {
   access_token: string;
@@ -11,7 +12,7 @@ export interface LoginResponse {
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
-  private readonly apiUrl = 'http://127.0.0.1:8000';
+  private readonly apiUrl = environment.apiUrl;
 
   login(email: string, password: string) {
     const formData = new FormData();
