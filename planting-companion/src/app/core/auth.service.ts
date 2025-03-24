@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, throwError } from 'rxjs';
+import { catchError, tap, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { TokenService } from './token.service';
 
 export interface LoginResponse {
   access_token: string;
@@ -12,6 +13,7 @@ export interface LoginResponse {
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
+  private readonly tokenService = inject(TokenService);
   private readonly apiUrl = environment.apiUrl;
 
   login(email: string, password: string) {
@@ -23,6 +25,11 @@ export class AuthService {
       `${this.apiUrl}/login/access-token`,
       formData
     ).pipe(
+      tap(response => {
+        if (response?.access_token) {
+          this.handleLoginSuccess(response.access_token);
+        }
+      }),
       catchError((error: HttpErrorResponse) => {
         return throwError(() => error.error?.detail || 'Login failed');
       })
@@ -30,7 +37,16 @@ export class AuthService {
   }
 
   handleLoginSuccess(token: string) {
-    localStorage.setItem('access_token', token);
-    this.router.navigate(['/dashboard']); // Update with your success route
+    this.tokenService.setToken(token); 
+    this.router.navigate(['/dashboard']);
+  }
+
+  logout() {
+    this.tokenService.removeToken();
+    this.router.navigate(['/login']);
+  }
+
+  isLoggedIn(): boolean {
+    return this.tokenService.isTokenValid();
   }
 }
