@@ -20,7 +20,22 @@ export class TokenService {
 
   isTokenValid(): boolean {
     const token = this.getToken();
-    // Implement token validation logic here
-    return !!token;
+    if (!token) return false;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const exp = payload.exp;
+      
+      if (typeof exp !== 'number') return false;
+      
+      // Convert Unix timestamp to milliseconds and check expiration
+      const expirationDate = new Date(exp * 1000);
+      const bufferSeconds = 300; // 5-minute buffer for clock skew
+      const now = new Date();
+      
+      return expirationDate.getTime() > now.getTime() + (bufferSeconds * 1000);
+    } catch (e) {
+      return false;
+    }
   }
 }
