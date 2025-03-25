@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, tap, throwError } from 'rxjs';
+import { catchError, interval, tap, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TokenService } from './token.service';
 
@@ -46,6 +46,14 @@ export class AuthService {
     this.router.navigate(['/login'], {
       queryParams: { sessionExpired: true },
       replaceUrl: true
+    });
+  }
+
+  startSessionMonitoring() {
+    interval(30000).subscribe(() => {
+      if (!this.tokenService.isTokenValid()) {
+        this.logout();
+      }
     });
   }
 
