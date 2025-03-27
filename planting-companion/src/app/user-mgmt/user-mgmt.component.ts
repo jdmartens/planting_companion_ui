@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, User } from '../core/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UserComponent, UserDialogData } from '../user/user.component';
 
 @Component({
   selector: 'app-user-mgmt',
@@ -10,7 +12,9 @@ export class UserMgmtComponent implements OnInit {
   users: User[] = [];
   errorMessage: string | null = null;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService, 
+    private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -28,9 +32,32 @@ export class UserMgmtComponent implements OnInit {
     });
   }
 
-  editUser(userId: string): void {
-    console.log(`Edit user with ID: ${userId}`);
-    // Implement edit logic here
+  addUser(): void {
+    const dialogRef = this.dialog.open(UserComponent, {
+      width: '400px',
+      data: { isEdit: false } as UserDialogData,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('User added:', result);
+        // Call API to add user and reload the list
+      }
+    });
+  }
+
+  editUser(user: any): void {
+    const dialogRef = this.dialog.open(UserComponent, {
+      width: '400px',
+      data: { isEdit: true, user } as UserDialogData,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('User updated:', result);
+        // Call API to update user and reload the list
+      }
+    });
   }
 
   deleteUser(userId: string): void {

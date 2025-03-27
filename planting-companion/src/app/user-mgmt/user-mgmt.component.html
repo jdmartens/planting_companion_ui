@@ -5,28 +5,30 @@
     {{ errorMessage }}
   </div>
 
-  <table *ngIf="users.length > 0" class="user-table">
-    <thead>
-      <tr>
-        <th>Full Name</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{ user.full_name || 'N/A' }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.is_superuser ? 'Admin' : 'User' }}</td>
-        <td>{{ user.is_active ? 'Active' : 'Inactive' }}</td>
-        <td>
-          <button (click)="editUser(user.id)">Edit</button>
-          <button (click)="deleteUser(user.id)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
+  <div>
+    <button mat-raised-button color="primary" (click)="addUser()">Add User</button>
+  </div>
+  
+  <table mat-table [dataSource]="users" class="mat-elevation-z8">
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="full_name">
+      <th mat-header-cell *matHeaderCellDef>Full Name</th>
+      <td mat-cell *matCellDef="let user">{{ user.full_name || 'N/A' }}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let user">
+        <button mat-button (click)="editUser(user)">Edit</button>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="['email', 'full_name', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['email', 'full_name', 'actions']"></tr>
   </table>
 
   <div *ngIf="users.length === 0">
