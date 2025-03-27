@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { UserService, User } from '../core/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserComponent, UserDialogData } from '../user/user.component';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-user-mgmt',
   templateUrl: './user-mgmt.component.html',
-  styleUrls: ['./user-mgmt.component.css']
+  styleUrls: ['./user-mgmt.component.css'],
+  imports: [MatTableModule]
 })
 export class UserMgmtComponent implements OnInit {
   users: User[] = [];
