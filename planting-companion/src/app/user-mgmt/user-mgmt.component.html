@@ -1,0 +1,35 @@
+<div class="user-mgmt">
+  <h1>User Management</h1>
+
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <table *ngIf="users.length > 0" class="user-table">
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.full_name || 'N/A' }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.is_superuser ? 'Admin' : 'User' }}</td>
+        <td>{{ user.is_active ? 'Active' : 'Inactive' }}</td>
+        <td>
+          <button (click)="editUser(user.id)">Edit</button>
+          <button (click)="deleteUser(user.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="users.length === 0">
+    No users found.
+  </div>
+</div>
