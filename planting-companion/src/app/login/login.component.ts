@@ -25,7 +25,7 @@ export class LoginComponent {
       const { email, password } = this.loginForm.value;
       this.authService.login(email!, password!).subscribe({
         next: (response) => {
-          this.authService.handleLoginSuccess(response.access_token, 'email', 'username');
+          this.authService.handleLoginSuccess(response.access_token);
         },
         error: (err) => {
           this.errorMessage = err;
