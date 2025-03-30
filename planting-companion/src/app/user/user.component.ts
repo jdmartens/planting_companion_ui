@@ -1,54 +1,41 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatTableModule } from '@angular/material/table';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
-
-export interface UserDialogData {
-  isEdit: boolean;
-  user?: {
-    id: string;
-    email: string;
-    full_name: string;
-    is_active: boolean;
-    is_superuser: boolean;
-  };
-}
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css'],
-  imports: [MatCheckboxModule, MatTableModule, MatFormFieldModule, ReactiveFormsModule]
+  styleUrls: ['./user.component.css']
 })
 export class UserComponent {
+  @Input() title: string = 'Add User';
+  @Input() user: any | null = null;
+  @Output() save = new EventEmitter<any>();
+  @Output() cancel = new EventEmitter<void>();
+
   userForm: FormGroup;
-  title: string;
 
-  constructor(
-    private fb: FormBuilder,
-    private dialogRef: MatDialogRef<UserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: UserDialogData
-  ) {
-    this.title = data.isEdit ? 'Edit User' : 'Add User';
-
+  constructor(private fb: FormBuilder) {
     this.userForm = this.fb.group({
-      email: [data.user?.email || '', [Validators.required, Validators.email]],
-      full_name: [data.user?.full_name || '', Validators.required],
-      is_active: [data.user?.is_active || true],
-      is_superuser: [data.user?.is_superuser || false],
+      email: ['', [Validators.required, Validators.email]],
+      full_name: ['', Validators.required],
+      is_active: [true],
+      is_superuser: [false]
     });
   }
 
-  save(): void {
-    if (this.userForm.valid) {
-      this.dialogRef.close(this.userForm.value);
+  ngOnChanges(): void {
+    if (this.user) {
+      this.userForm.patchValue(this.user);
     }
   }
 
-  cancel(): void {
-    this.dialogRef.close();
+  onSave(): void {
+    if (this.userForm.valid) {
+      this.save.emit(this.userForm.value);
+    }
+  }
+
+  onCancel(): void {
+    this.cancel.emit();
   }
 }
