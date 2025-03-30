@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { catchError, interval, tap, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TokenService } from './token.service';
+import { UserStateService } from '../store/user-state.service';
 
 export interface LoginResponse {
   access_token: string;
@@ -14,6 +15,7 @@ export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
   private readonly tokenService = inject(TokenService);
+  private readonly userStateService = inject(UserStateService);
   private readonly apiUrl = environment.apiUrl;
 
   login(email: string, password: string) {
@@ -38,6 +40,7 @@ export class AuthService {
 
   handleLoginSuccess(token: string) {
     this.tokenService.setToken(token); 
+    this.userStateService.setUser(response.full_name, response.email); 
     this.router.navigate(['/dashboard']);
   }
 
