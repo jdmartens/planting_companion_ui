@@ -29,7 +29,7 @@ export class AuthService {
     ).pipe(
       tap(response => {
         if (response?.access_token) {
-          this.handleLoginSuccess(response.access_token, email, 'User!');
+          this.handleLoginSuccess(response.access_token);
         }
       }),
       catchError((error: HttpErrorResponse) => {
@@ -38,9 +38,13 @@ export class AuthService {
     );
   }
 
-  handleLoginSuccess(token: string, email: string, full_name: string) {
+  handleLoginSuccess(token: string) {
     this.tokenService.setToken(token); 
-    this.userStateService.setUser(full_name, email); 
+
+    const email = this.tokenService.getEmail() || 'Unknown Email';
+  const fullName = this.tokenService.getFullName() || 'Unknown User';
+
+    this.userStateService.setUser(fullName, email); 
     this.router.navigate(['/dashboard']);
   }
 
