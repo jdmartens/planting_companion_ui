@@ -45,7 +45,7 @@ export class AuthService {
   const fullName = this.tokenService.getFullName() || 'Unknown User';
 
     this.userStateService.setUser(fullName, email); 
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dash']);
   }
 
   logout() {
