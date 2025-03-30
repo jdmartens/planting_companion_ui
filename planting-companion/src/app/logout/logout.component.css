@@ -1,0 +1,24 @@
+.logout-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.logout-container h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.logout-container p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.login-link {
+  font-size: 16px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
