@@ -29,7 +29,7 @@ export class AuthService {
     ).pipe(
       tap(response => {
         if (response?.access_token) {
-          this.handleLoginSuccess(response.access_token);
+          this.handleLoginSuccess(response.access_token, email, 'User!');
         }
       }),
       catchError((error: HttpErrorResponse) => {
