@@ -1,14 +1,14 @@
 <div class="user-mgmt">
   <h1>User Management</h1>
 
-  <div *ngIf="errorMessage" class="error">
-    {{ errorMessage }}
-  </div>
+  @if (errorMessage) {
+    <div>{{ errorMessage }}</div>
+  }
 
   <div>
     <button mat-raised-button color="primary" (click)="addUser()">Add User</button>
   </div>
-  
+
   <table mat-table [dataSource]="users" class="mat-elevation-z8">
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef>Email</th>
@@ -31,7 +31,7 @@
     <tr mat-row *matRowDef="let row; columns: ['email', 'full_name', 'actions']"></tr>
   </table>
 
-  <div *ngIf="users.length === 0">
-    No users found.
-  </div>
+  @if (users.length === 0) {
+    <div>No users found.</div>
+  }
 </div>
