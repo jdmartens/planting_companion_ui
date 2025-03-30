@@ -42,7 +42,7 @@ export class AuthService {
     this.tokenService.setToken(token); 
 
     const email = this.tokenService.getEmail() || 'Unknown Email';
-  const fullName = this.tokenService.getFullName() || 'Unknown User';
+    const fullName = this.tokenService.getFullName() || 'Unknown User';
 
     this.userStateService.setUser(fullName, email); 
     this.router.navigate(['/dash']);
