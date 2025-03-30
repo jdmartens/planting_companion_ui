@@ -50,4 +50,30 @@ export class TokenService {
       return null;
     }
   }
+
+  getEmail(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.email || null;
+    } catch (e) {
+      console.error('Failed to decode token for email', e);
+      return null;
+    }
+  }
+
+  getFullName(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.full_name || null;
+    } catch (e) {
+      console.error('Failed to decode token for full name', e);
+      return null;
+    }
+  }
 }
