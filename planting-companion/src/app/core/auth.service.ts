@@ -38,9 +38,9 @@ export class AuthService {
     );
   }
 
-  handleLoginSuccess(token: string) {
+  handleLoginSuccess(token: string, email: string, full_name: string) {
     this.tokenService.setToken(token); 
-    this.userStateService.setUser(response.full_name, response.email); 
+    this.userStateService.setUser(full_name, email); 
     this.router.navigate(['/dashboard']);
   }
 
