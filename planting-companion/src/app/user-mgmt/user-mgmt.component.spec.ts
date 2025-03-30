@@ -68,22 +68,22 @@ describe('UserMgmtComponent', () => {
     spyOn(component, 'editUser');
     component.users = mockUsers;
     fixture.detectChanges();
-
-    const editButton = fixture.nativeElement.querySelector('button.edit-user');
+  
+    const editButton = fixture.nativeElement.querySelectorAll('button.btn-secondary')[0]; // Select the first edit button
     editButton.click();
-
-    expect(component.editUser).toHaveBeenCalledWith('1'); // Assuming the first user's ID is '1'
+  
+    expect(component.editUser).toHaveBeenCalledWith(mockUsers[0]); // Pass the correct User object
   });
-
+  
   it('should call deleteUser when delete button is clicked', () => {
     spyOn(component, 'deleteUser');
     component.users = mockUsers;
     fixture.detectChanges();
-
-    const deleteButton = fixture.nativeElement.querySelector('button.delete-user');
+  
+    const deleteButton = fixture.nativeElement.querySelectorAll('button.btn-error')[0]; // Select the first delete button
     deleteButton.click();
-
-    expect(component.deleteUser).toHaveBeenCalledWith('1'); // Assuming the first user's ID is '1'
+  
+    expect(component.deleteUser).toHaveBeenCalledWith(mockUsers[0].id); // Pass the correct User ID
   });
 
   it('should display "No users found" when the user list is empty', () => {

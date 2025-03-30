@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, User } from '../core/user.service';
-import { UserDialogData } from '../user/user.component';
+import { UserComponent } from '../user/user.component'; // Import UserComponent
 
 @Component({
   selector: 'app-user-mgmt',
+  standalone: true,
+  imports: [UserComponent], // Add UserComponent to imports
   templateUrl: './user-mgmt.component.html',
   styleUrls: ['./user-mgmt.component.css']
 })
@@ -13,7 +15,7 @@ export class UserMgmtComponent implements OnInit {
 
   // Dialog state
   isDialogOpen = false;
-  dialogData: UserDialogData | null = null;
+  dialogData: { isEdit: boolean; user?: User } | null = null;
 
   constructor(private userService: UserService) {}
 
