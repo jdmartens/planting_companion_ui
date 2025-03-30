@@ -1,7 +1,6 @@
 <div class="p-6 bg-white rounded-lg shadow-md">
   <h1 class="text-2xl font-bold mb-4">{{ title }}</h1>
   <form [formGroup]="userForm" class="space-y-4">
-    <!-- Email Field -->
     <div class="form-control">
       <label class="label">
         <span class="label-text">Email</span>
@@ -20,7 +19,6 @@
       }
     </div>
 
-    <!-- Full Name Field -->
     <div class="form-control">
       <label class="label">
         <span class="label-text">Full Name</span>
@@ -36,7 +34,6 @@
       }
     </div>
 
-    <!-- Active Checkbox -->
     <div class="form-control">
       <label class="cursor-pointer label">
         <span class="label-text">Active</span>
@@ -44,7 +41,6 @@
       </label>
     </div>
 
-    <!-- Admin Checkbox -->
     <div class="form-control">
       <label class="cursor-pointer label">
         <span class="label-text">Admin</span>
@@ -52,14 +48,13 @@
       </label>
     </div>
 
-    <!-- Actions -->
     <div class="flex justify-end space-x-4">
-      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
       <button
         type="button"
         class="btn btn-primary"
         [disabled]="userForm.invalid"
-        (click)="save()"
+        (click)="onSave()"
       >
         Save
       </button>

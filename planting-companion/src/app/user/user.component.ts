@@ -1,8 +1,20 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+
+export interface UserDialogData {
+  isEdit: boolean;
+  user?: {
+    id: string;
+    email: string;
+    full_name: string | null;
+    is_active: boolean;
+    is_superuser: boolean;
+  };
+}
 
 @Component({
   selector: 'app-user',
+  imports: [ReactiveFormsModule],
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
