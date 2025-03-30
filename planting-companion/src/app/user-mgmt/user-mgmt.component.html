@@ -1,37 +1,38 @@
-<div class="user-mgmt">
-  <h1>User Management</h1>
-
-  @if (errorMessage) {
-    <div>{{ errorMessage }}</div>
-  }
-
-  <div>
-    <button mat-raised-button color="primary" (click)="addUser()">Add User</button>
-  </div>
-
-  <table mat-table [dataSource]="users" class="mat-elevation-z8">
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef>Email</th>
-      <td mat-cell *matCellDef="let user">{{ user.email }}</td>
-    </ng-container>
-  
-    <ng-container matColumnDef="full_name">
-      <th mat-header-cell *matHeaderCellDef>Full Name</th>
-      <td mat-cell *matCellDef="let user">{{ user.full_name || 'N/A' }}</td>
-    </ng-container>
-  
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let user">
-        <button mat-button (click)="editUser(user)">Edit</button>
-      </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="['email', 'full_name', 'actions']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['email', 'full_name', 'actions']"></tr>
-  </table>
-
-  @if (users.length === 0) {
-    <div>No users found.</div>
-  }
+<div>
+  <button class="btn btn-primary" (click)="addUser()">Add User</button>
 </div>
+
+<table class="table w-full mt-4">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Full Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.email }}</td>
+      <td>{{ user.full_name || 'N/A' }}</td>
+      <td>
+        <button class="btn btn-secondary btn-sm" (click)="editUser(user)">Edit</button>
+        <button class="btn btn-error btn-sm" (click)="deleteUser(user.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- DaisyUI Modal -->
+@if (isDialogOpen) {
+  <div class="modal modal-open">
+    <div class="modal-box">
+      <app-user
+        [title]="dialogData?.isEdit ? 'Edit User' : 'Add User'"
+        [user]="dialogData?.user"
+        (save)="closeDialog($event)"
+        (cancel)="closeDialog()"
+      ></app-user>
+    </div>
+    <div class="modal-backdrop" (click)="closeDialog()"></div>
+  </div>
+}

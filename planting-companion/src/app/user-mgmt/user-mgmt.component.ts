@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, User } from '../core/user.service';
-import { MatDialog } from '@angular/material/dialog';
-import { UserComponent, UserDialogData } from '../user/user.component';
-import { MatTableModule } from '@angular/material/table';
+import { UserDialogData } from '../user/user.component';
 
 @Component({
   selector: 'app-user-mgmt',
   templateUrl: './user-mgmt.component.html',
-  styleUrls: ['./user-mgmt.component.css'],
-  imports: [MatTableModule]
+  styleUrls: ['./user-mgmt.component.css']
 })
 export class UserMgmtComponent implements OnInit {
   users: User[] = [];
   errorMessage: string | null = null;
 
-  constructor(
-    private userService: UserService, 
-    private dialog: MatDialog) {}
+  // Dialog state
+  isDialogOpen = false;
+  dialogData: UserDialogData | null = null;
+
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -35,31 +34,27 @@ export class UserMgmtComponent implements OnInit {
   }
 
   addUser(): void {
-    const dialogRef = this.dialog.open(UserComponent, {
-      width: '400px',
-      data: { isEdit: false } as UserDialogData,
-    });
+    this.dialogData = { isEdit: false };
+    this.isDialogOpen = true;
+  }
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
+  editUser(user: User): void {
+    this.dialogData = { isEdit: true, user };
+    this.isDialogOpen = true;
+  }
+
+  closeDialog(result?: any): void {
+    this.isDialogOpen = false;
+    if (result) {
+      if (this.dialogData?.isEdit) {
+        console.log('User updated:', result);
+        // Call API to update user and reload the list
+      } else {
         console.log('User added:', result);
         // Call API to add user and reload the list
       }
-    });
-  }
-
-  editUser(user: any): void {
-    const dialogRef = this.dialog.open(UserComponent, {
-      width: '400px',
-      data: { isEdit: true, user } as UserDialogData,
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        console.log('User updated:', result);
-        // Call API to update user and reload the list
-      }
-    });
+    }
+    this.dialogData = null;
   }
 
   deleteUser(userId: string): void {
