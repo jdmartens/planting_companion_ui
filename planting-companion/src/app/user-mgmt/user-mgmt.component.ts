@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, User } from '../core/user.service';
 import { UserComponent } from '../user/user.component'; // Import UserComponent
+import { ThemeService } from '../core/theme.service';
 
 @Component({
   selector: 'app-user-mgmt',
@@ -17,7 +18,7 @@ export class UserMgmtComponent implements OnInit {
   isDialogOpen = false;
   dialogData: { isEdit: boolean; user?: User } | null = null;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, public themeService: ThemeService) {}
 
   ngOnInit(): void {
     this.loadUsers();
