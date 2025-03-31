@@ -1,14 +1,12 @@
+<select 
+  class="select select-bordered w-full max-w-xs"
+  (change)="onThemeChange($event)">
+  @for (theme of themeService.getThemes(); track theme.id) {
+    <option 
+      [value]="theme.id" 
+      [selected]="theme.id === themeService.getCurrentTheme()">
+      {{ theme.name }}
+    </option>
+  }
+</select>
 
-<div class="dropdown dropdown-end">
-  <div tabindex="0" role="button" class="btn m-1">
-    {{ themeService.getCurrentTheme() | titlecase }}
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-    </svg>
-  </div>
-  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-    @for (theme of themeService.getThemes(); track theme) {
-      <li><button (click)="themeService.setTheme(theme)">{{ theme | titlecase }}</button></li>
-    }
-  </ul>
-</div>

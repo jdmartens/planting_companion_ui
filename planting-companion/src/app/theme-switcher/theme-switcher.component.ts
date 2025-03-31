@@ -11,7 +11,10 @@ import { CommonModule } from '@angular/common';
 export class ThemeSwitcherComponent {
   constructor(public themeService: ThemeService) {}
 
-  toggleTheme() {
-    // this.themeService.toggleTheme();
+  onThemeChange(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    if (target?.value) {
+      this.themeService.setTheme(target.value);
+    }
   }
 }
