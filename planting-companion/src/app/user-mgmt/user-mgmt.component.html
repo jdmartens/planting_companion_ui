@@ -34,7 +34,7 @@
 
 <!-- DaisyUI Modal -->
 @if (isDialogOpen) {
-  <div class="modal modal-open" data-theme="coffee">
+  <div class="modal modal-open" [attr.data-theme]="themeService.getCurrentTheme()">
     <div class="modal-box">
       <app-user
         [title]="dialogData?.isEdit ? 'Edit User' : 'Add User'"
