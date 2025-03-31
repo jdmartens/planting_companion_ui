@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { AuthService } from './core/auth.service';
 import { TokenService } from './core/token.service';
 import { UserStateService } from './store/user-state.service';
+import { ThemeService } from './core/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { UserStateService } from './store/user-state.service';
 export class AppComponent implements OnInit{
   private readonly userStateService = inject(UserStateService);
   private readonly tokenService = inject(TokenService);
+  private readonly themeService = inject(ThemeService);
 
   constructor(authService: AuthService) {
     authService.startSessionMonitoring();
@@ -22,6 +24,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this.initializeUserFromToken();
+    this.themeService.setTheme(this.themeService.getCurrentTheme());
   }
 
 
