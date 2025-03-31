@@ -4,7 +4,12 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
   private renderer: Renderer2;
-  private availableThemes = ['light', 'dark', 'coffee', 'bumblebee'];
+  private availableThemes = [
+    { id: 'light', name: 'Light' },
+    { id: 'dark', name: 'Dark' }, 
+    { id: 'coffee', name: 'Coffee' },
+    { id: 'bumblebee', name: 'Bumblebee' }
+  ];
   private currentTheme = 'light';
 
   constructor(rendererFactory: RendererFactory2) {
@@ -17,28 +22,35 @@ export class ThemeService {
     this.setTheme(savedTheme);
   }
 
-  getThemes(): string[] {
-    console.log(this.availableThemes);
+  getThemes(): {id: string, name: string}[] {
     return this.availableThemes;
   }
 
+  // getCurrentTheme(): string {
+  //   console.log('current theme:', this.currentTheme);
+  //   return this.currentTheme;
+  // }
+
   getCurrentTheme(): string {
-    console.log('current theme:', this.currentTheme);
-    return this.currentTheme;
+    return this.availableThemes.find(t => t.id === this.currentTheme)?.name || 'Light';
   }
 
   setTheme(theme: string): void {
-    if (!this.availableThemes.includes(theme)) return;
-    
-    this.currentTheme = theme;
-    this.renderer.setAttribute(document.documentElement, 'data-theme', theme);
-    localStorage.setItem('theme', theme);
+    console.log('setting theme:', theme);
+    // if (!this.availableThemes.includes(theme)) return;
+    if (!this.availableThemes.some(t => t.name === theme)) return;
+    const theTheme = theme.toLowerCase();
+    console.log('setting theme!:', theme, theTheme);
+
+    this.currentTheme = theTheme;
+    this.renderer.setAttribute(document.documentElement, 'data-theme', theTheme);
+    localStorage.setItem('theme', theTheme);
     
     // Update daisyUI color scheme class
     this.availableThemes.forEach(t => 
-      this.renderer.removeClass(document.documentElement, t)
+      this.renderer.removeClass(document.documentElement, t.name.toLowerCase())
     );
-    this.renderer.addClass(document.documentElement, theme);
+    this.renderer.addClass(document.documentElement, theTheme);
   }
 
   private getSystemTheme(): string {
