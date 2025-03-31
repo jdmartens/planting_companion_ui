@@ -1,11 +1,11 @@
 <select 
   class="select select-bordered w-full max-w-xs"
   (change)="onThemeChange($event)">
-  @for (theme of themeService.getThemes(); track theme.id) {
+  @for (theme of themeService.getThemes(); track theme) {
     <option 
-      [value]="theme.id" 
-      [selected]="theme.id === themeService.getCurrentTheme()">
-      {{ theme.name }}
+      [value]="theme" 
+      [selected]="theme === themeService.getCurrentTheme()">
+      {{ theme | titlecase }}
     </option>
   }
 </select>

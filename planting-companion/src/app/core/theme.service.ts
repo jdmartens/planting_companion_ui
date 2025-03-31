@@ -4,11 +4,7 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
   private renderer: Renderer2;
-  private availableThemes = [
-    { id: 'light', name: 'Light' },
-    { id: 'dark', name: 'Dark' }, 
-    { id: 'coffee', name: 'Coffee' },
-    { id: 'bumblebee', name: 'Bumblebee' }
+  private availableThemes = ['light', 'dark', 'coffee', 'bumblebee'
   ];
   private currentTheme = 'light';
 
@@ -22,35 +18,27 @@ export class ThemeService {
     this.setTheme(savedTheme);
   }
 
-  getThemes(): {id: string, name: string}[] {
+  getThemes(): string[] {
     return this.availableThemes;
   }
 
-  // getCurrentTheme(): string {
-  //   console.log('current theme:', this.currentTheme);
-  //   return this.currentTheme;
-  // }
-
   getCurrentTheme(): string {
-    return this.availableThemes.find(t => t.id === this.currentTheme)?.name || 'Light';
+    return this.currentTheme;
   }
 
   setTheme(theme: string): void {
     console.log('setting theme:', theme);
-    // if (!this.availableThemes.includes(theme)) return;
-    if (!this.availableThemes.some(t => t.name === theme)) return;
-    const theTheme = theme.toLowerCase();
-    console.log('setting theme!:', theme, theTheme);
+    if (!this.availableThemes.includes(theme)) return;
 
-    this.currentTheme = theTheme;
-    this.renderer.setAttribute(document.documentElement, 'data-theme', theTheme);
-    localStorage.setItem('theme', theTheme);
+    this.currentTheme = theme;
+    this.renderer.setAttribute(document.documentElement, 'data-theme', theme);
+    localStorage.setItem('theme', theme);
     
     // Update daisyUI color scheme class
     this.availableThemes.forEach(t => 
-      this.renderer.removeClass(document.documentElement, t.name.toLowerCase())
+      this.renderer.removeClass(document.documentElement, t)
     );
-    this.renderer.addClass(document.documentElement, theTheme);
+    this.renderer.addClass(document.documentElement, theme);
   }
 
   private getSystemTheme(): string {
