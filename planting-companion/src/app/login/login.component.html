@@ -1,25 +1,65 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" id="email" formControlName="email">
-    @if (loginForm.controls.email.invalid && loginForm.controls.email.touched) {
-      <div>Valid email is required</div>
-    }
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="card w-full max-w-sm shadow-lg bg-white p-6">
+    <h2 class="text-2xl font-bold text-center mb-4">Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <!-- Email Field -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Email</span>
+        </label>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Enter your email"
+          class="input input-bordered w-full"
+        />
+        @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
+          <div class="validator-hint text-red-500 text-sm mt-1">Email is required</div>
+        }
+        @if (loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched) {
+          <div class="validator-hint text-red-500 text-sm mt-1">Enter a valid email address</div>
+        }
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Password</span>
+        </label>
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Enter your password"
+          class="input input-bordered w-full"
+        />
+        @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
+          <div class="validator-hint text-red-500 text-sm mt-1">Password is required</div>
+        }
+      </div>
+
+      <!-- Error Message -->
+      @if (errorMessage) {
+        <div class="alert alert-error shadow-lg mt-4">
+          <span>{{ errorMessage }}</span>
+        </div>
+      }
+
+      <!-- Submit Button -->
+      <div class="form-control mt-6">
+        <button
+          type="submit"
+          class="btn btn-primary w-full"
+          [disabled]="loginForm.invalid"
+        >
+          Login
+        </button>
+      </div>
+    </form>
+
+    <!-- Register Link -->
+    <p class="text-center text-sm mt-4">
+      Don't have an account?
+      <a routerLink="/register" class="text-primary font-bold">Register</a>
+    </p>
   </div>
-
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" id="password" formControlName="password">
-    @if (loginForm.controls.password.invalid && loginForm.controls.password.touched) {
-      <div>Password is required</div>
-    }
-  </div>
-
-  @if (errorMessage) {
-    <div class="error-message">{{ errorMessage }}</div>
-  }
-
-  <button type="submit" [disabled]="!loginForm.valid">Login</button>
-</form>
-
-<p>Don't have an account? <a routerLink="/register">Register here</a></p>
+</div>
