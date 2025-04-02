@@ -54,7 +54,15 @@ export class UserMgmtComponent implements OnInit {
         // Call API to update user and reload the list
       } else {
         console.log('User added:', result);
-        // Call API to add user and reload the list
+        this.userService.createUser(result).subscribe({
+          next: (newUser) => {
+            console.log('User successfully created:', newUser);
+            this.loadUsers(); 
+          },
+          error: (error) => {
+            console.error('Failed to create user:', error);
+          }
+        });
       }
     }
     this.dialogData = null;
