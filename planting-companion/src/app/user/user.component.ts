@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 
 export interface UserDialogData {
   isEdit: boolean;
@@ -32,8 +32,10 @@ export class UserComponent {
       email: ['', [Validators.required, Validators.email]],
       full_name: ['', Validators.required],
       is_active: [true],
-      is_superuser: [false]
-    });
+      is_superuser: [false],
+      password: ['', [Validators.required, Validators.minLength(6)]], // New field
+      confirm_password: ['', Validators.required] // New field
+    }, { validators: this.passwordsMatchValidator }); // Add custom validator
   }
 
   ngOnChanges(): void {
@@ -50,5 +52,11 @@ export class UserComponent {
 
   onCancel(): void {
     this.cancel.emit();
+  }
+
+  private passwordsMatchValidator(group: AbstractControl): { [key: string]: boolean } | null {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirm_password')?.value;
+    return password === confirmPassword ? null : { passwordsMismatch: true };
   }
 }

@@ -34,6 +34,41 @@
       }
     </div>
 
+    <!-- Password Field -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">Password</span>
+      </label>
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="Enter password"
+        class="input input-bordered validator w-full"
+      />
+      @if (userForm.get('password')?.hasError('required') && userForm.get('password')?.touched) {
+        <div class="validator-hint">Password is required</div>
+      }
+      @if (userForm.get('password')?.hasError('minlength') && userForm.get('password')?.touched) {
+        <div class="validator-hint">Password must be at least 6 characters</div>
+      }
+    </div>
+
+    <!-- Confirm Password Field -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">Confirm Password</span>
+      </label>
+      <input
+        type="password"
+        formControlName="confirm_password"
+        placeholder="Confirm password"
+        class="input input-bordered validator w-full"
+      />
+      @if (userForm.hasError('passwordsMismatch') && userForm.get('confirm_password')?.touched) {
+        <div class="validator-hint">Passwords do not match</div>
+      }
+    </div>
+
     <div class="form-control">
       <label class="cursor-pointer label">
         <span class="label-text">Active</span>
