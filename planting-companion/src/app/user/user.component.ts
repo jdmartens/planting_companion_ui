@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 export interface UserDialogData {
@@ -16,7 +16,8 @@ export interface UserDialogData {
   selector: 'app-user',
   imports: [ReactiveFormsModule],
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
+  encapsulation: ViewEncapsulation.None 
 })
 export class UserComponent {
   @Input() title: string = 'Add User';
