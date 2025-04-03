@@ -28,4 +28,8 @@ export class UserService {
   createUser(user: Partial<User>): Observable<User> {
     return this.http.post<User>(`${this.apiUrl}/users/`, user); 
   }
+
+  patchUser(userId: string, user: Partial<User>): Observable<User> {
+    return this.http.patch<User>(`${this.apiUrl}/users/${userId}`, user);
+  }
 }
