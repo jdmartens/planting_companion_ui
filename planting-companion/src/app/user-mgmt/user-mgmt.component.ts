@@ -60,7 +60,8 @@ export class UserMgmtComponent implements OnInit {
             console.error('Failed to update user:', error);
           }
         });
-      } else {
+      } 
+      if (this.dialogData?.isEdit === false) {
         console.log('User added:', result);
         this.userService.createUser(result).subscribe({
           next: (newUser) => {
