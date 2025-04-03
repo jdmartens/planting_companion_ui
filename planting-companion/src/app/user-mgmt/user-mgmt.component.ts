@@ -79,6 +79,16 @@ export class UserMgmtComponent implements OnInit {
 
   deleteUser(userId: string): void {
     console.log(`Delete user with ID: ${userId}`);
-    // Implement delete logic here
+    if (confirm('Are you sure you want to delete this user?')) {
+      this.userService.deleteUser(userId).subscribe({
+        next: () => {
+          console.log(`User with ID ${userId} successfully deleted.`);
+          this.loadUsers(); // Reload the user list after deleting the user
+        },
+        error: (error) => {
+          console.error(`Failed to delete user with ID ${userId}:`, error);
+        }
+      });
+    }
   }
 }
