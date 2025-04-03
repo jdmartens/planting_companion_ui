@@ -49,9 +49,17 @@ export class UserMgmtComponent implements OnInit {
   closeDialog(result?: any): void {
     this.isDialogOpen = false;
     if (result) {
-      if (this.dialogData?.isEdit) {
+      if (this.dialogData?.isEdit && this.dialogData.user) {
         console.log('User updated:', result);
-        // Call API to update user and reload the list
+        this.userService.patchUser(this.dialogData.user.id, result).subscribe({
+          next: (updatedUser) => {
+            console.log('User successfully updated:', updatedUser);
+            this.loadUsers(); // Reload the user list after updating the user
+          },
+          error: (error) => {
+            console.error('Failed to update user:', error);
+          }
+        });
       } else {
         console.log('User added:', result);
         this.userService.createUser(result).subscribe({
