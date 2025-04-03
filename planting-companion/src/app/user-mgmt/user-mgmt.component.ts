@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService, User } from '../core/user.service';
 import { UserComponent } from '../user/user.component'; // Import UserComponent
 import { ThemeService } from '../core/theme.service';
+import { TokenService } from '../core/token.service';
 
 @Component({
   selector: 'app-user-mgmt',
@@ -18,7 +19,11 @@ export class UserMgmtComponent implements OnInit {
   isDialogOpen = false;
   dialogData: { isEdit: boolean; user?: User } | null = null;
 
-  constructor(private userService: UserService, public themeService: ThemeService) {}
+  constructor(
+    private userService: UserService,
+    public themeService: ThemeService,
+    public tokenService: TokenService
+  ) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -78,6 +83,14 @@ export class UserMgmtComponent implements OnInit {
   }
 
   deleteUser(userId: string): void {
+    const userToDelete = this.users.find(user => user.id === userId);
+    const loggedInUserEmail = this.tokenService.getEmail();
+
+    if (userToDelete?.email === loggedInUserEmail) {
+      alert('You cannot delete your own account.');
+      return;
+    }
+
     console.log(`Delete user with ID: ${userId}`);
     if (confirm('Are you sure you want to delete this user?')) {
       this.userService.deleteUser(userId).subscribe({
