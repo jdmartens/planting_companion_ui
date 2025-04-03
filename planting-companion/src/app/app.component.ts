@@ -27,6 +27,11 @@ export class AppComponent implements OnInit{
     this.themeService.setTheme(this.themeService.getCurrentTheme());
   }
 
+  isLoggedIn(): boolean {
+    // Check if the token contains an email or username
+    return !!this.tokenService.getEmail();
+  }
+
 
   private initializeUserFromToken(): void {
     if (this.tokenService.isTokenValid()) {
