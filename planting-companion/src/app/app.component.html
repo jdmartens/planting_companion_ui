@@ -1,38 +1,40 @@
-<div *ngIf="isLoggedIn()" class="drawer drawer-end">
-  <input id="right-drawer" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content">
-    <!-- Main Content -->
-    <div class="flex">
-      <!-- Left Menu -->
-      <aside class="w-64 bg-gray-100 p-4">
-        <ul class="menu bg-base-100 w-full">
-          <li><a routerLink="/dashboard">Dashboard</a></li>
-          <li><a routerLink="/plants">Plants</a></li>
-          <li><a routerLink="/user-settings">User Settings</a></li>
-          <li><a routerLink="/admin">Admin</a></li>
-        </ul>
-      </aside>
+@if (isLoggedIn()) {
+  <div class="drawer drawer-end">
+    <input id="right-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content">
+      <!-- Main Content -->
+      <div class="flex">
+        <!-- Left Menu -->
+        <aside class="w-64 bg-gray-100 p-4">
+          <ul class="menu bg-base-100 w-full">
+            <li><a routerLink="/dashboard">Dashboard</a></li>
+            <li><a routerLink="/plants">Plants</a></li>
+            <li><a routerLink="/user-settings">User Settings</a></li>
+            <li><a routerLink="/admin">Admin</a></li>
+          </ul>
+        </aside>
 
-      <!-- Main Content Area -->
-      <div class="flex-1 p-6">
-        <router-outlet></router-outlet>
+        <!-- Main Content Area -->
+        <div class="flex-1 p-6">
+          <router-outlet></router-outlet>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Right Drawer -->
-  <div class="drawer-side">
-    <label for="right-drawer" class="drawer-overlay"></label>
-    <ul class="menu p-4 w-80 bg-base-100 text-base-content">
-      <li><a routerLink="/dashboard">Dashboard</a></li>
-      <li><a routerLink="/plants">Plants</a></li>
-      <li><a routerLink="/user-settings">User Settings</a></li>
-      <li><a routerLink="/admin">Admin</a></li>
-    </ul>
+    <!-- Right Drawer -->
+    <div class="drawer-side">
+      <label for="right-drawer" class="drawer-overlay"></label>
+      <ul class="menu p-4 w-80 bg-base-100 text-base-content">
+        <li><a routerLink="/dashboard">Dashboard</a></li>
+        <li><a routerLink="/plants">Plants</a></li>
+        <li><a routerLink="/user-settings">User Settings</a></li>
+        <li><a routerLink="/admin">Admin</a></li>
+      </ul>
+    </div>
   </div>
-</div>
+}
 
-<!-- Main Content for Non-Logged-In Users -->
-<div *ngIf="!isLoggedIn()">
+@else {
+  <!-- Main Content for Non-Logged-In Users -->
   <router-outlet></router-outlet>
-</div>
+}
