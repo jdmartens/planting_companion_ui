@@ -1,48 +1,52 @@
-<div>
-  <button class="btn btn-primary" (click)="addUser()">Add User</button>
-</div>
+<div class="container mx-auto p-2 pt-6">
+  <h1 class="text-2xl font-bold">User Management</h1>
 
-<div class="overflow-x-auto">
-  <table class="table w-full mt-4">
-    <thead>
-      <tr>
-        <th>Email</th>
-        <th>Full Name</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (user of users; track user.id) {
-        <tr class="hover">
-          <td>{{ user.email }}</td>
-          <td>{{ user.full_name || 'N/A' }}</td>
-          <td>
-            <button class="btn btn-sm btn-primary" (click)="editUser(user)">Edit</button>
-            <button class="btn btn-sm btn-error ml-2" (click)="deleteUser(user.id)">Delete</button>
-          </td>
-        </tr>
-      }
-      @empty {
-        <tr>
-          <td colspan="3" class="text-center">No users found</td>
-        </tr>
-      }
-    </tbody>
-  </table>
-</div>
-
-
-<!-- DaisyUI Modal -->
-@if (isDialogOpen) {
-  <div class="modal modal-open" [attr.data-theme]="themeService.getCurrentTheme()">
-    <div class="modal-box">
-      <app-user
-        [title]="dialogData?.isEdit ? 'Edit User' : 'Add User'"
-        [user]="dialogData?.user"
-        (save)="closeDialog($event)"
-        (cancel)="closeDialog()"
-      ></app-user>
-    </div>
-    <div class="modal-backdrop" (click)="closeDialog()"></div>
+  <div>
+    <button class="btn btn-primary" (click)="addUser()">Add User</button>
   </div>
-}
+
+  <div class="overflow-x-auto">
+    <table class="table w-full mt-4">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Full Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of users; track user.id) {
+          <tr class="hover">
+            <td>{{ user.email }}</td>
+            <td>{{ user.full_name || 'N/A' }}</td>
+            <td>
+              <button class="btn btn-sm btn-primary" (click)="editUser(user)">Edit</button>
+              <button class="btn btn-sm btn-error ml-2" (click)="deleteUser(user.id)">Delete</button>
+            </td>
+          </tr>
+        }
+        @empty {
+          <tr>
+            <td colspan="3" class="text-center">No users found</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- DaisyUI Modal -->
+  @if (isDialogOpen) {
+    <div class="modal modal-open" [attr.data-theme]="themeService.getCurrentTheme()">
+      <div class="modal-box">
+        <app-user
+          [title]="dialogData?.isEdit ? 'Edit User' : 'Add User'"
+          [user]="dialogData?.user"
+          (save)="closeDialog($event)"
+          (cancel)="closeDialog()"
+        ></app-user>
+      </div>
+      <div class="modal-backdrop" (click)="closeDialog()"></div>
+    </div>
+  }
+</div>    
