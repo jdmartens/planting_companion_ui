@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 
 @Component({
   selector: 'app-user-settings',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './user-settings.component.html',
   styleUrl: './user-settings.component.css'
 })
@@ -12,6 +12,7 @@ export class UserSettingsComponent {
   passwordForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
+    // Initialize the passwordForm in the constructor
     this.passwordForm = this.fb.group({
       currentPassword: ['', Validators.required],
       newPassword: ['', [Validators.required, Validators.minLength(6)]],

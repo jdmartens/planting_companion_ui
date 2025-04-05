@@ -32,21 +32,76 @@
       <div>
         <h2 class="text-xl font-semibold mb-2">My Profile</h2>
         <p>Update your personal information here.</p>
-        <!-- Add form or content for My Profile -->
       </div>
     }
     @if (activeTab === 'password') {
       <div>
         <h2 class="text-xl font-semibold mb-2">Password</h2>
-        <p>Change your password here.</p>
-        <!-- Add form or content for Password -->
+        <form [formGroup]="passwordForm" (ngSubmit)="savePassword()" class="space-y-4">
+          <!-- Current Password -->
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Current Password</span>
+            </label>
+            <input
+              type="password"
+              formControlName="currentPassword"
+              placeholder="Enter current password"
+              class="input input-bordered w-full"
+            />
+            @if (passwordForm.get('currentPassword')?.hasError('required') && passwordForm.get('currentPassword')?.touched) {
+              <div class="text-red-500 text-sm mt-1">Current password is required.</div>
+            }
+          </div>
+
+          <!-- New Password -->
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">New Password</span>
+            </label>
+            <input
+              type="password"
+              formControlName="newPassword"
+              placeholder="Enter new password"
+              class="input input-bordered w-full"
+            />
+            @if (passwordForm.get('newPassword')?.hasError('required') && passwordForm.get('newPassword')?.touched) {
+              <div class="text-red-500 text-sm mt-1">New password is required.</div>
+            }
+            @if (passwordForm.get('newPassword')?.hasError('minlength') && passwordForm.get('newPassword')?.touched) {
+              <div class="text-red-500 text-sm mt-1">Password must be at least 6 characters.</div>
+            }
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Confirm Password</span>
+            </label>
+            <input
+              type="password"
+              formControlName="confirmPassword"
+              placeholder="Confirm new password"
+              class="input input-bordered w-full"
+            />
+            @if (passwordForm.get('confirmPassword')?.hasError('required') && passwordForm.get('confirmPassword')?.touched) {
+              <div class="text-red-500 text-sm mt-1">Confirm password is required.</div>
+            }
+          </div>
+
+          <!-- Save Button -->
+          <div class="form-control mt-4">
+            <button type="submit" class="btn btn-primary w-full" [disabled]="passwordForm.invalid">
+              Save
+            </button>
+          </div>
+        </form>
       </div>
     }
     @if (activeTab === 'appearance') {
       <div>
         <h2 class="text-xl font-semibold mb-2">Appearance</h2>
         <p>Customize the appearance of the application.</p>
-        <!-- Add form or content for Appearance -->
       </div>
     }
   </div>
