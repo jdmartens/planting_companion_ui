@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './user-settings.component.css'
 })
 export class UserSettingsComponent {
+  activeTab: string = 'profile'; // Default tab
 
+  setActiveTab(tab: string): void {
+    this.activeTab = tab;
+  }
 }
