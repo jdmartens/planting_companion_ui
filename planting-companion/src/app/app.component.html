@@ -7,7 +7,7 @@
         <!-- Left Menu -->
         <aside class="w-64 bg-gray-100 p-4">
           <ul class="menu bg-base-100 w-full">
-            <li><a routerLink="/dashboard">Dashboard</a></li>
+            <li><a routerLink="/dash">Dashboard</a></li>
             <li><a routerLink="/plants">Plants</a></li>
             <li><a routerLink="/user-settings">User Settings</a></li>
             <li><a routerLink="/admin">Admin</a></li>
@@ -25,16 +25,14 @@
     <div class="drawer-side">
       <label for="right-drawer" class="drawer-overlay"></label>
       <ul class="menu p-4 w-80 bg-base-100 text-base-content">
-        <li><a routerLink="/dashboard">Dashboard</a></li>
+        <li><a routerLink="/dash">Dashboard</a></li>
         <li><a routerLink="/plants">Plants</a></li>
         <li><a routerLink="/user-settings">User Settings</a></li>
         <li><a routerLink="/admin">Admin</a></li>
       </ul>
     </div>
   </div>
-}
-
-@else {
+} @else {
   <!-- Main Content for Non-Logged-In Users -->
   <router-outlet></router-outlet>
 }
