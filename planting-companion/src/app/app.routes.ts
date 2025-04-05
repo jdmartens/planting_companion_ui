@@ -3,10 +3,12 @@ import { LoginComponent } from './login/login.component';
 import { UserMgmtComponent } from './user-mgmt/user-mgmt.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LogoutComponent } from './logout/logout.component';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'dash', component: DashboardComponent },
+  { path: 'settings', component: UserSettingsComponent },
   { path: 'admin', component: UserMgmtComponent }
 ];
