@@ -76,4 +76,17 @@ export class TokenService {
       return null;
     }
   }
+
+  isAdmin(): boolean {
+    const token = this.getToken();
+    if (!token) return false;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.is_superuser || false; // Return true if the user is an admin
+    } catch (e) {
+      console.error('Failed to decode token for admin status', e);
+      return false;
+    }
+  }
 }
