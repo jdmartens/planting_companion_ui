@@ -25,17 +25,24 @@ export class UserComponent {
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<void>();
 
+  isAdd: boolean = false;
   userForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
+    this.isAdd = this.title.toLowerCase().includes('add');
     this.userForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       full_name: ['', Validators.required],
       is_active: [true],
-      is_superuser: [false],
-      password: ['', [Validators.required, Validators.minLength(6)]], // New field
-      confirm_password: ['', Validators.required] // New field
-    }, { validators: this.passwordsMatchValidator }); // Add custom validator
+      is_superuser: [false]
+    });
+
+    // Add password fields only if not in Edit mode
+    if (this.isAdd) {
+      this.userForm.addControl('password', this.fb.control('', [Validators.required, Validators.minLength(6)]));
+      this.userForm.addControl('confirm_password', this.fb.control('', Validators.required));
+      this.userForm.setValidators(this.passwordsMatchValidator); // Add custom validator
+    }
   }
 
   ngOnChanges(): void {
@@ -46,7 +53,9 @@ export class UserComponent {
 
   onSave(): void {
     if (this.userForm.valid) {
-      this.save.emit(this.userForm.value);
+      const formValue = { ...this.userForm.value };
+      delete formValue.confirm_password;
+      this.save.emit(formValue);
     }
   }
 
