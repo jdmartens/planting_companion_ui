@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 
 export interface UserDialogData {
@@ -17,10 +17,10 @@ export interface UserDialogData {
   imports: [ReactiveFormsModule],
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
-  encapsulation: ViewEncapsulation.None 
+  encapsulation: ViewEncapsulation.None,
 })
-export class UserComponent {
-  @Input() title: string = 'Add User';
+export class UserComponent implements OnChanges {
+  @Input() title: string = '';
   @Input() user: any | null = null;
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<void>();
@@ -29,24 +29,30 @@ export class UserComponent {
   userForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.isAdd = this.title.toLowerCase().includes('add');
+    // Initialize the form without password fields
     this.userForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       full_name: ['', Validators.required],
       is_active: [true],
-      is_superuser: [false]
+      is_superuser: [false],
     });
-
-    // Add password fields only if not in Edit mode
-    if (this.isAdd) {
-      this.userForm.addControl('password', this.fb.control('', [Validators.required, Validators.minLength(6)]));
-      this.userForm.addControl('confirm_password', this.fb.control('', Validators.required));
-      this.userForm.setValidators(this.passwordsMatchValidator); // Add custom validator
-    }
   }
 
-  ngOnChanges(): void {
-    if (this.user) {
+  ngOnChanges(changes: SimpleChanges): void {
+    // Check if title has changed and determine if it's "Add User"
+    if (changes['title'] && this.title) {
+      this.isAdd = this.title.toLowerCase().includes('add');
+
+      // Add password fields if in "Add User" mode
+      if (this.isAdd && !this.userForm.contains('password')) {
+        this.userForm.addControl('password', this.fb.control('', [Validators.required, Validators.minLength(6)]));
+        this.userForm.addControl('confirm_password', this.fb.control('', Validators.required));
+        this.userForm.setValidators(this.passwordsMatchValidator); // Add custom validator
+      }
+    }
+
+    // Patch user data if provided
+    if (changes['user'] && this.user) {
       this.userForm.patchValue(this.user);
     }
   }
@@ -54,7 +60,7 @@ export class UserComponent {
   onSave(): void {
     if (this.userForm.valid) {
       const formValue = { ...this.userForm.value };
-      delete formValue.confirm_password;
+      delete formValue.confirm_password; // Remove confirm_password before emitting
       this.save.emit(formValue);
     }
   }
