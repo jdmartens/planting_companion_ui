@@ -1,7 +1,6 @@
 <div class="p-6 bg-white rounded-lg shadow-md">
   <h1 class="text-2xl font-bold mb-4">{{ title }}</h1>
-  <form [formGroup]="userForm" (ngSubmit)="onSave()" class="space-y-4">
-    <!-- Email Field -->
+  <form [formGroup]="userForm" class="space-y-4">
     <div class="form-control">
       <label class="label">
         <span class="label-text">Email</span>
@@ -10,17 +9,16 @@
         type="email"
         formControlName="email"
         placeholder="Enter email"
-        class="input input-bordered w-full"
+        class="input input-bordered validator w-full"
       />
       @if (userForm.get('email')?.hasError('required') && userForm.get('email')?.touched) {
-        <div class="text-red-500 text-sm mt-1">Email is required.</div>
+        <div class="validator-hint">Email is required</div>
       }
       @if (userForm.get('email')?.hasError('email') && userForm.get('email')?.touched) {
-        <div class="text-red-500 text-sm mt-1">Enter a valid email address.</div>
+        <div class="validator-hint">Enter a valid email address</div>
       }
     </div>
 
-    <!-- Full Name Field -->
     <div class="form-control">
       <label class="label">
         <span class="label-text">Full Name</span>
@@ -29,16 +27,14 @@
         type="text"
         formControlName="full_name"
         placeholder="Enter full name"
-        class="input input-bordered w-full"
+        class="input input-bordered validator w-full"
       />
       @if (userForm.get('full_name')?.hasError('required') && userForm.get('full_name')?.touched) {
-        <div class="text-red-500 text-sm mt-1">Full name is required.</div>
+        <div class="validator-hint">Full name is required</div>
       }
     </div>
-
-    <!-- Password Fields (Only for Add Mode) -->
     @if (isAdd) {
-      <!-- Password -->
+      <!-- Password Field -->
       <div class="form-control">
         <label class="label">
           <span class="label-text">Password</span>
@@ -47,17 +43,17 @@
           type="password"
           formControlName="password"
           placeholder="Enter password"
-          class="input input-bordered w-full"
+          class="input input-bordered validator w-full"
         />
         @if (userForm.get('password')?.hasError('required') && userForm.get('password')?.touched) {
-          <div class="text-red-500 text-sm mt-1">Password is required.</div>
+          <div class="validator-hint">Password is required</div>
         }
         @if (userForm.get('password')?.hasError('minlength') && userForm.get('password')?.touched) {
-          <div class="text-red-500 text-sm mt-1">Password must be at least 6 characters.</div>
+          <div class="validator-hint">Password must be at least 6 characters</div>
         }
       </div>
 
-      <!-- Confirm Password -->
+      <!-- Confirm Password Field -->
       <div class="form-control">
         <label class="label">
           <span class="label-text">Confirm Password</span>
@@ -66,15 +62,14 @@
           type="password"
           formControlName="confirm_password"
           placeholder="Confirm password"
-          class="input input-bordered w-full"
+          class="input input-bordered validator w-full"
         />
         @if (userForm.hasError('passwordsMismatch') && userForm.get('confirm_password')?.touched) {
-          <div class="text-red-500 text-sm mt-1">Passwords do not match.</div>
+          <div class="validator-hint">Passwords do not match</div>
         }
       </div>
     }
 
-    <!-- Active Checkbox -->
     <div class="form-control">
       <label class="cursor-pointer label">
         <span class="label-text">Active</span>
@@ -82,7 +77,6 @@
       </label>
     </div>
 
-    <!-- Admin Checkbox -->
     <div class="form-control">
       <label class="cursor-pointer label">
         <span class="label-text">Admin</span>
@@ -90,10 +84,9 @@
       </label>
     </div>
 
-    <!-- Actions -->
     <div class="flex justify-end space-x-4">
       <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
-      <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Save</button>
+      <button type="button" class="btn btn-primary" [disabled]="userForm.invalid" (click)="onSave()">Save</button>
     </div>
   </form>
 </div>
