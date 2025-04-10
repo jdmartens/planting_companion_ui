@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../core/user.service';
 
 @Component({
   selector: 'app-user-settings',
@@ -11,7 +12,7 @@ export class UserSettingsComponent {
   activeTab: string = 'profile';
   passwordForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private userService: UserService,) {
     // Initialize the passwordForm in the constructor
     this.passwordForm = this.fb.group({
       currentPassword: ['', Validators.required],
@@ -33,8 +34,18 @@ export class UserSettingsComponent {
         return;
       }
 
-      console.log('Password updated:', { currentPassword, newPassword });
-      // Add logic to call the backend API to update the password
+      this.userService.resetPassword(currentPassword, newPassword).subscribe({
+        next: () => {
+          alert('Password updated successfully!');
+        },
+        error: (error) => {
+          if (error.status === 404) {
+            alert(error.error.message || 'Password reset failed. Please try again.');
+          } else {
+            alert('An unexpected error occurred. Please try again later.');
+          }
+        }
+      });
     } else {
       alert('Please fill out all required fields.');
     }
