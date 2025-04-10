@@ -32,11 +32,6 @@ export class UserSettingsComponent {
     if (this.passwordForm.valid) {
       const { currentPassword, newPassword, confirmPassword } = this.passwordForm.value;
 
-      if (newPassword !== confirmPassword) {
-        alert('New password and confirm password do not match.');
-        return;
-      }
-
       this.userService.resetPassword(currentPassword, newPassword).subscribe({
         next: () => {
           alert('Password updated successfully!');
