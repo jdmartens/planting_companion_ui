@@ -87,6 +87,9 @@
             @if (passwordForm.get('confirmPassword')?.hasError('required') && passwordForm.get('confirmPassword')?.touched) {
               <div class="text-red-500 text-sm mt-1">Confirm password is required.</div>
             }
+            @if (passwordForm.hasError('passwordsMismatch') && passwordForm.get('confirmPassword')?.touched) {
+              <div class="text-red-500 text-sm mt-1">Passwords do not match.</div>
+            }
           </div>
 
           <!-- Save Button -->

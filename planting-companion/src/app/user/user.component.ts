@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewEncapsulation, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
+import { passwordMatchValidator } from '../validators/password-match.validator';
 
 export interface UserDialogData {
   isEdit: boolean;
@@ -47,7 +48,7 @@ export class UserComponent implements OnChanges {
       if (this.isAdd && !this.userForm.contains('password')) {
         this.userForm.addControl('password', this.fb.control('', [Validators.required, Validators.minLength(6)]));
         this.userForm.addControl('confirm_password', this.fb.control('', Validators.required));
-        this.userForm.setValidators(this.passwordsMatchValidator); // Add custom validator
+        this.userForm.setValidators(passwordMatchValidator('newPassword', 'confirmPassword')); // Add custom validator
       }
     }
 
@@ -69,9 +70,4 @@ export class UserComponent implements OnChanges {
     this.cancel.emit();
   }
 
-  private passwordsMatchValidator(group: AbstractControl): { [key: string]: boolean } | null {
-    const password = group.get('password')?.value;
-    const confirmPassword = group.get('confirm_password')?.value;
-    return password === confirmPassword ? null : { passwordsMismatch: true };
-  }
 }

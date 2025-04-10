@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../core/user.service';
+import { passwordMatchValidator } from '../validators/password-match.validator';
 
 @Component({
   selector: 'app-user-settings',
@@ -13,12 +14,14 @@ export class UserSettingsComponent {
   passwordForm: FormGroup;
 
   constructor(private fb: FormBuilder, private userService: UserService,) {
-    // Initialize the passwordForm in the constructor
-    this.passwordForm = this.fb.group({
-      currentPassword: ['', Validators.required],
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
-    });
+    this.passwordForm = this.fb.group(
+      {
+        currentPassword: ['', Validators.required],
+        newPassword: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required]
+      },
+      { validators: passwordMatchValidator('newPassword', 'confirmPassword') }
+    );
   }
 
   setActiveTab(tab: string): void {
