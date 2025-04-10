@@ -19,10 +19,10 @@ export class CurrentUserService {
   }
 
   deleteMe(): Observable<void> {
-    return this.http.delete<void>(this.apiUrl);
+    return this.http.delete<void>(`${this.apiUrl}/me`);
   }
 
   updateMe(userData: any): Observable<any> {
-    return this.http.patch<any>(this.apiUrl, userData);
+    return this.http.patch<any>(`${this.apiUrl}/me`, userData);
   }
 }
