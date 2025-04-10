@@ -38,7 +38,7 @@ export class UserService {
   }
 
   resetPassword(currentPassword: string, newPassword: string): Observable<any> {
-    return this.http.post(this.apiUrl, { currentPassword, newPassword }).pipe(
+    return this.http.post(`${this.apiUrl}/reset-password/`, { currentPassword, newPassword }).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(() => error);
       })
