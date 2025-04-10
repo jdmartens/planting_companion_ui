@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface User {
@@ -35,5 +35,13 @@ export class UserService {
 
   deleteUser(userId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/users/${userId}`); 
+  }
+
+  resetPassword(currentPassword: string, newPassword: string): Observable<any> {
+    return this.http.post(this.apiUrl, { currentPassword, newPassword }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(() => error);
+      })
+    );
   }
 }
