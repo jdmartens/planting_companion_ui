@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from '../core/user.service';
+import { CurrentUserService } from '../core/current-user.service';
 import { passwordMatchValidator } from '../validators/password-match.validator';
 
 @Component({
@@ -13,7 +13,7 @@ export class UserSettingsComponent {
   activeTab: string = 'profile';
   passwordForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService,) {
+  constructor(private fb: FormBuilder, private userService: CurrentUserService,) {
     this.passwordForm = this.fb.group(
       {
         currentPassword: ['', Validators.required],
@@ -32,7 +32,7 @@ export class UserSettingsComponent {
     if (this.passwordForm.valid) {
       const { currentPassword, newPassword, confirmPassword } = this.passwordForm.value;
 
-      this.userService.resetPassword(currentPassword, newPassword).subscribe({
+      this.userService.resetMyPassword(currentPassword, newPassword).subscribe({
         next: () => {
           alert('Password updated successfully!');
         },
