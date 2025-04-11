@@ -31,7 +31,36 @@
     @if (activeTab === 'profile') {
       <div>
         <h2 class="text-xl font-semibold mb-2">My Profile</h2>
-        <p>Update your personal information here.</p>
+        @if (loading) {
+          <p>Loading profile...</p>
+        } @else {
+          @if (userProfile) {
+            <div class="form-control mb-4">
+              <label class="label">
+                <span class="label-text font-semibold">Email</span>
+              </label>
+              <input
+                type="text"
+                [value]="userProfile.email"
+                class="input input-bordered w-full"
+                readonly
+              />
+            </div>
+            <div class="form-control mb-4">
+              <label class="label">
+                <span class="label-text font-semibold">Full Name</span>
+              </label>
+              <input
+                type="text"
+                [value]="userProfile.full_name || 'N/A'"
+                class="input input-bordered w-full"
+                readonly
+              />
+            </div>
+          } @else {
+            <p>No profile information available.</p>
+          }
+        }
       </div>
     }
     @if (activeTab === 'password') {
