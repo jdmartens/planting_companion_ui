@@ -48,6 +48,12 @@ export class UserSettingsComponent implements OnInit {
     });
   }
 
+  editProfile(): void {
+    // Logic to open the UserComponent for editing
+    console.log('Edit profile clicked. Open UserComponent with:', this.userProfile);
+    // You can use a modal or router navigation to open the UserComponent
+  }
+
   savePassword(): void {
     if (this.passwordForm.valid) {
       const { currentPassword, newPassword, confirmPassword } = this.passwordForm.value;
