@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CurrentUserService } from '../core/current-user.service';
 import { passwordMatchValidator } from '../validators/password-match.validator';
+import { User } from '../core/user.service';
+import { ThemeService } from '../core/theme.service';
+import { UserComponent } from '../user/user.component'
 
 @Component({
   selector: 'app-user-settings',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, UserComponent],
   templateUrl: './user-settings.component.html',
   styleUrl: './user-settings.component.css'
 })
@@ -15,7 +18,15 @@ export class UserSettingsComponent implements OnInit {
   userProfile: any = null; 
   loading: boolean = false;
 
-  constructor(private fb: FormBuilder, private userService: CurrentUserService,) {
+  // Dialog state
+    isDialogOpen = false;
+    dialogData: { title: string; user?: User } | null = null;
+
+  constructor(
+    private fb: FormBuilder,
+    private userService: CurrentUserService,
+    public themeService: ThemeService,
+  ) {
     this.passwordForm = this.fb.group(
       {
         currentPassword: ['', Validators.required],
@@ -49,9 +60,12 @@ export class UserSettingsComponent implements OnInit {
   }
 
   editProfile(): void {
-    // Logic to open the UserComponent for editing
-    console.log('Edit profile clicked. Open UserComponent with:', this.userProfile);
-    // You can use a modal or router navigation to open the UserComponent
+    this.dialogData = { 'title': 'Edit User', 'user': this.userProfile };
+    this.isDialogOpen = true;
+  }
+
+  closeDialog(result?: any): void {
+    console.log('Dialog closed with result:', result);
   }
 
   savePassword(): void {
