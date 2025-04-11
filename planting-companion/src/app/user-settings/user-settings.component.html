@@ -26,6 +26,20 @@
     </a>
   </div>
 
+  @if (isDialogOpen) {
+    <div class="modal modal-open" [attr.data-theme]="themeService.getCurrentTheme()">
+      <div class="modal-box">
+        <app-user
+          [title]="dialogData?.isEdit ? 'Edit User' : 'Add User'"
+          [user]="dialogData?.user"
+          (save)="closeDialog($event)"
+          (cancel)="closeDialog()"
+        ></app-user>
+      </div>
+      <div class="modal-backdrop" (click)="closeDialog()"></div>
+    </div>
+  }
+
   <!-- Tab Content -->
   <div class="mt-6">
     @if (activeTab === 'profile') {
