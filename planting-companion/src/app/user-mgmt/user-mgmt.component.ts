@@ -17,7 +17,7 @@ export class UserMgmtComponent implements OnInit {
 
   // Dialog state
   isDialogOpen = false;
-  dialogData: { isEdit: boolean; user?: User } | null = null;
+  dialogData: { title: string; user?: User } = { title: '' };
 
   constructor(
     private userService: UserService,
@@ -42,19 +42,19 @@ export class UserMgmtComponent implements OnInit {
   }
 
   addUser(): void {
-    this.dialogData = { isEdit: false };
+    this.dialogData = { title: 'Add User' };
     this.isDialogOpen = true;
   }
 
   editUser(user: User): void {
-    this.dialogData = { isEdit: true, user };
+    this.dialogData = { title: 'Edit User'  };
     this.isDialogOpen = true;
   }
 
   closeDialog(result?: any): void {
     this.isDialogOpen = false;
     if (result) {
-      if (this.dialogData?.isEdit && this.dialogData.user) {
+      if (this.dialogData.title === 'Edit User' && this.dialogData.user) {
         console.log('User updated:', result);
         this.userService.patchUser(this.dialogData.user.id, result).subscribe({
           next: (updatedUser) => {
@@ -66,7 +66,7 @@ export class UserMgmtComponent implements OnInit {
           }
         });
       } 
-      if (this.dialogData?.isEdit === false) {
+      if (this.dialogData.title === 'Add User') {
         console.log('User added:', result);
         this.userService.createUser(result).subscribe({
           next: (newUser) => {
@@ -79,7 +79,7 @@ export class UserMgmtComponent implements OnInit {
         });
       }
     }
-    this.dialogData = null;
+    this.dialogData = {title: ''};
   }
 
   deleteUser(userId: string): void {
