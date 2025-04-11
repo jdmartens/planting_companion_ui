@@ -32,7 +32,7 @@ export class UserSettingsComponent {
     if (this.passwordForm.valid) {
       const { currentPassword, newPassword, confirmPassword } = this.passwordForm.value;
 
-      this.userService.resetMyPassword(currentPassword, newPassword).subscribe({
+      this.userService.updateMyPassword(currentPassword, newPassword).subscribe({
         next: () => {
           alert('Password updated successfully!');
         },
