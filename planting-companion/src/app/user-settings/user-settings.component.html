@@ -39,24 +39,15 @@
               <label class="label">
                 <span class="label-text font-semibold">Email</span>
               </label>
-              <input
-                type="text"
-                [value]="userProfile.email"
-                class="input input-bordered w-full"
-                readonly
-              />
+              <div class="text-lg">{{ userProfile.email }}</div>
             </div>
             <div class="form-control mb-4">
               <label class="label">
                 <span class="label-text font-semibold">Full Name</span>
               </label>
-              <input
-                type="text"
-                [value]="userProfile.full_name || 'N/A'"
-                class="input input-bordered w-full"
-                readonly
-              />
+              <div class="text-lg">{{ userProfile.full_name || 'N/A' }}</div>
             </div>
+            <button class="btn btn-primary mt-4" (click)="editProfile()">Edit</button>
           } @else {
             <p>No profile information available.</p>
           }
