@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CurrentUserService } from '../core/current-user.service';
 import { passwordMatchValidator } from '../validators/password-match.validator';
@@ -9,9 +9,11 @@ import { passwordMatchValidator } from '../validators/password-match.validator';
   templateUrl: './user-settings.component.html',
   styleUrl: './user-settings.component.css'
 })
-export class UserSettingsComponent {
+export class UserSettingsComponent implements OnInit {
   activeTab: string = 'profile';
   passwordForm: FormGroup;
+  userProfile: any = null; 
+  loading: boolean = false;
 
   constructor(private fb: FormBuilder, private userService: CurrentUserService,) {
     this.passwordForm = this.fb.group(
@@ -24,8 +26,26 @@ export class UserSettingsComponent {
     );
   }
 
+  ngOnInit(): void {
+    this.fetchUserProfile();
+  }
+
   setActiveTab(tab: string): void {
     this.activeTab = tab;
+  }
+
+  fetchUserProfile(): void {
+    this.loading = true;
+    this.userService.getMe().subscribe({
+      next: (user) => {
+        this.userProfile = user;
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Failed to fetch user profile:', error);
+        this.loading = false;
+      }
+    });
   }
 
   savePassword(): void {
