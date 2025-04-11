@@ -20,7 +20,7 @@ export class UserSettingsComponent implements OnInit {
 
   // Dialog state
     isDialogOpen = false;
-    dialogData: { title: string; user?: User } | null = null;
+    dialogData: { title: string; user?: User } = { title: '' };
 
   constructor(
     private fb: FormBuilder,
