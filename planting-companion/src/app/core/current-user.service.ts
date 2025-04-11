@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 })
 export class CurrentUserService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = environment.apiUrl;
+  private readonly apiUrl = environment.apiUrl + '/users';
 
   updateMyPassword(currentPassword: string, newPassword: string): Observable<void> {
     return this.http.patch<void>(`${this.apiUrl}/me/password`, { currentPassword, newPassword }).pipe(
