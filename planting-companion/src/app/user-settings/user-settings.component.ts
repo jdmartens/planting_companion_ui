@@ -17,6 +17,7 @@ export class UserSettingsComponent implements OnInit {
   passwordForm: FormGroup;
   userProfile: any = null; 
   loading: boolean = false;
+  toasted: boolean = false;
 
   // Dialog state
     isDialogOpen = false;
@@ -70,6 +71,7 @@ export class UserSettingsComponent implements OnInit {
     if (result) {
       this.userService.updateMe(result).subscribe({
         next: (updatedUser) => {
+          this.toasted = true;
           console.log('User successfully updated:', updatedUser);
         },
         error: (error) => {

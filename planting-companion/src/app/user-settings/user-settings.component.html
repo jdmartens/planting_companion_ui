@@ -40,6 +40,14 @@
     </div>
   }
 
+  @if (toasted) {
+    <div class="toast">
+      <div class="alert alert-info">
+        <span>User updated.</span>
+      </div>
+    </div>
+  }
+  
   <!-- Tab Content -->
   <div class="mt-6">
     @if (activeTab === 'profile') {
