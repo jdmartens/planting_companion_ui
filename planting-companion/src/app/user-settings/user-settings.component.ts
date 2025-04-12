@@ -67,6 +67,16 @@ export class UserSettingsComponent implements OnInit {
   closeDialog(result?: any): void {
     console.log('Dialog closed with result:', result);
     this.isDialogOpen = false;
+    if (result) {
+      this.userService.updateMe(result).subscribe({
+        next: (updatedUser) => {
+          console.log('User successfully updated:', updatedUser);
+        },
+        error: (error) => {
+          console.error('Failed to update user:', error);
+        }
+      });
+    }
   }
 
   savePassword(): void {
