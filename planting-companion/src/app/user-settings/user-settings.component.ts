@@ -66,6 +66,7 @@ export class UserSettingsComponent implements OnInit {
 
   closeDialog(result?: any): void {
     console.log('Dialog closed with result:', result);
+    this.isDialogOpen = false;
   }
 
   savePassword(): void {
