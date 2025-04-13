@@ -5,10 +5,11 @@ import { passwordMatchValidator } from '../validators/password-match.validator';
 import { User } from '../core/user.service';
 import { ThemeService } from '../core/theme.service';
 import { UserComponent } from '../user/user.component'
+import { ThemeSwitcherComponent } from "../theme-switcher/theme-switcher.component";
 
 @Component({
   selector: 'app-user-settings',
-  imports: [ReactiveFormsModule, UserComponent],
+  imports: [ReactiveFormsModule, UserComponent, ThemeSwitcherComponent],
   templateUrl: './user-settings.component.html',
   styleUrl: './user-settings.component.css'
 })
