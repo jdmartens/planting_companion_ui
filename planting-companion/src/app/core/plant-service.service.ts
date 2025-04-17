@@ -6,8 +6,13 @@ import { environment } from '../../environments/environment';
 export interface Plant {
   id?: number; // Optional for new plants
   name: string;
-  type: string;
-  description?: string;
+  cultivar: string;
+  quantity: number;
+  date: string;
+  location: string;
+  notes: string;
+  days_to_germ: number;
+  days_to_maturity: number;
 }
 
 @Injectable({
