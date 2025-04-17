@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Plant {
   id?: number; // Optional for new plants
@@ -13,7 +14,7 @@ export interface Plant {
   providedIn: 'root'
 })
 export class PlantService {
-  private readonly BASE_URL = '/api/plants'; // Base URL for plant endpoints
+  private readonly apiUrl = environment.apiUrl + 'plants'
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +23,7 @@ export class PlantService {
    * @returns An Observable containing the list of plants.
    */
   getPlants(): Observable<Plant[]> {
-    return this.http.get<Plant[]>(this.BASE_URL);
+    return this.http.get<Plant[]>(this.apiUrl);
   }
 
   /**
@@ -31,7 +32,7 @@ export class PlantService {
    * @returns An Observable containing the plant data.
    */
   getPlant(id: number): Observable<Plant> {
-    return this.http.get<Plant>(`${this.BASE_URL}/${id}`);
+    return this.http.get<Plant>(`${this.apiUrl}/${id}`);
   }
 
   /**
@@ -40,7 +41,7 @@ export class PlantService {
    * @returns An Observable containing the created plant.
    */
   createPlant(plant: Plant): Observable<Plant> {
-    return this.http.post<Plant>(this.BASE_URL, plant);
+    return this.http.post<Plant>(this.apiUrl, plant);
   }
 
   /**
@@ -50,7 +51,7 @@ export class PlantService {
    * @returns An Observable containing the updated plant.
    */
   updatePlant(id: number, plant: Plant): Observable<Plant> {
-    return this.http.put<Plant>(`${this.BASE_URL}/${id}`, plant);
+    return this.http.put<Plant>(`${this.apiUrl}/${id}`, plant);
   }
 
   /**
@@ -59,7 +60,7 @@ export class PlantService {
    * @returns An Observable for the delete operation.
    */
   deletePlant(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.BASE_URL}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
 }
