@@ -19,7 +19,7 @@ export interface Plant {
   providedIn: 'root'
 })
 export class PlantService {
-  private readonly apiUrl = environment.apiUrl + '/plants'
+  private readonly apiUrl = environment.apiUrl + '/plants/';
 
   constructor(private http: HttpClient) {}
 
@@ -37,7 +37,7 @@ export class PlantService {
    * @returns An Observable containing the plant data.
    */
   getPlant(id: number): Observable<Plant> {
-    return this.http.get<Plant>(`${this.apiUrl}/${id}`);
+    return this.http.get<Plant>(`${this.apiUrl}${id}`);
   }
 
   /**
@@ -56,7 +56,7 @@ export class PlantService {
    * @returns An Observable containing the updated plant.
    */
   updatePlant(id: number, plant: Plant): Observable<Plant> {
-    return this.http.put<Plant>(`${this.apiUrl}/${id}`, plant);
+    return this.http.put<Plant>(`${this.apiUrl}${id}`, plant);
   }
 
   /**
@@ -65,7 +65,7 @@ export class PlantService {
    * @returns An Observable for the delete operation.
    */
   deletePlant(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}${id}`);
   }
 
 }
