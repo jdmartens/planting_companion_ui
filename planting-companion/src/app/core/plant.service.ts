@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface Plant {
@@ -28,7 +28,9 @@ export class PlantService {
    * @returns An Observable containing the list of plants.
    */
   getPlants(): Observable<Plant[]> {
-    return this.http.get<Plant[]>(this.apiUrl);
+    return this.http.get<{ data: Plant[] }>(this.apiUrl).pipe(
+      map((response) => response.data) // Extract the "data" property
+    );
   }
 
   /**
