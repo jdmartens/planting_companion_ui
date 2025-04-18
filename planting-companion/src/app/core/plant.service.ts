@@ -19,7 +19,7 @@ export interface Plant {
   providedIn: 'root'
 })
 export class PlantService {
-  private readonly apiUrl = environment.apiUrl + 'plants'
+  private readonly apiUrl = environment.apiUrl + '/plants'
 
   constructor(private http: HttpClient) {}
 
