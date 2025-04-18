@@ -11,6 +11,6 @@ export const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   { path: 'dash', component: DashboardComponent },
   { path: 'settings', component: UserSettingsComponent },
-  { path: 'admin', component: UserMgmtComponent }
+  { path: 'admin', component: UserMgmtComponent },
   { path: 'plants', component: PlantMgmtComponent }
 ];
