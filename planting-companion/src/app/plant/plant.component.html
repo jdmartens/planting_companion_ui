@@ -1,1 +1,29 @@
-<p>plant works!</p>
+<h2 class="text-xl font-bold mb-4">{{ title }}</h2>
+
+<form>
+  <div class="form-control mb-4">
+    <label class="label">
+      <span class="label-text">Name</span>
+    </label>
+    <input type="text" class="input input-bordered" [(ngModel)]="plant.name" />
+  </div>
+
+  <div class="form-control mb-4">
+    <label class="label">
+      <span class="label-text">Cultivar</span>
+    </label>
+    <input type="text" class="input input-bordered" [(ngModel)]="plant.cultivar" />
+  </div>
+
+  <div class="form-control mb-4">
+    <label class="label">
+      <span class="label-text">Quantity</span>
+    </label>
+    <input type="number" class="input input-bordered" [(ngModel)]="plant.quantity" />
+  </div>
+
+  <div class="modal-action">
+    <button type="button" class="btn btn-primary" (click)="onSave()">Save</button>
+    <button type="button" class="btn" (click)="onCancel()">Cancel</button>
+  </div>
+</form>

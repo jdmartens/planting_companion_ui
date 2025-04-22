@@ -1,11 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Plant } from '../core/plant.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-plant',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './plant.component.html',
-  styleUrl: './plant.component.css'
+  styleUrls: ['./plant.component.css']
 })
 export class PlantComponent {
+  @Input() title: string = '';
+  @Input() plant: Plant = { name: '', cultivar: '', quantity: 0, date: '', location: '', notes: '', days_to_germ: 0, days_to_maturity: 0 };
+  @Output() save = new EventEmitter<Plant>();
+  @Output() cancel = new EventEmitter<void>();
 
+  onSave(): void {
+    this.save.emit(this.plant);
+  }
+
+  onCancel(): void {
+    this.cancel.emit();
+  }
 }
