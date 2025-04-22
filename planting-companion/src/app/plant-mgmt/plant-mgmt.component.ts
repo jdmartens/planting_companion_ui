@@ -9,6 +9,8 @@ import { PlantService, Plant } from '../core/plant.service';
 export class PlantMgmtComponent implements OnInit {
   plants: Plant[] = [];
   loading: boolean = false;
+  isDialogOpen: boolean = false;
+  dialogData: { title: string; plant?: Plant } = { title: '' };
 
   constructor(private plantService: PlantService) {}
 
@@ -28,6 +30,36 @@ export class PlantMgmtComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  openAddDialog(): void {
+    this.dialogData = { title: 'Add Plant' };
+    this.isDialogOpen = true;
+  }
+
+  openEditDialog(plant: Plant): void {
+    this.dialogData = { title: 'Edit Plant', plant };
+    this.isDialogOpen = true;
+  }
+
+  closeDialog(): void {
+    this.isDialogOpen = false;
+  }
+
+  savePlant(plant: Plant): void {
+    if (plant.id) {
+      // Update existing plant
+      this.plantService.updatePlant(plant.id, plant).subscribe(() => {
+        this.fetchPlants();
+        this.closeDialog();
+      });
+    } else {
+      // Add new plant
+      this.plantService.createPlant(plant).subscribe(() => {
+        this.fetchPlants();
+        this.closeDialog();
+      });
+    }
   }
 
   editPlant(plant: Plant): void {
