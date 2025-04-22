@@ -56,10 +56,10 @@
       <div class="modal-box">
         <app-plant
           [title]="dialogData.title"
-          [plant]="dialogData.plant"
+          [plant]="dialogData.plant || { name: '', cultivar: '', quantity: 0, date: '', location: '', notes: '', days_to_germ: 0, days_to_maturity: 0 }"
           (save)="savePlant($event)"
-          (cancel)="closeDialog()"
-        ></app-plant>
+          (cancel)="closeDialog()">
+        </app-plant>
       </div>
       <div class="modal-backdrop" (click)="closeDialog()"></div>
     </div>
