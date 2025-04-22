@@ -29,4 +29,13 @@ export class PlantMgmtComponent implements OnInit {
       }
     });
   }
+
+  editPlant(plant: Plant): void {
+    // Logic to edit the plant
+    console.log('Editing plant:', plant);
+  }
+  deletePlant(plant: Plant): void {
+    // Logic to delete the plant
+    console.log('Deleting plant:', plant);
+  }
 }
