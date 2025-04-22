@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PlantService, Plant } from '../core/plant.service';
+import { PlantComponent } from '../plant/plant.component';
 
 @Component({
   selector: 'app-plant-mgmt',
   templateUrl: './plant-mgmt.component.html',
+  imports: [PlantComponent],
   styleUrl: './plant-mgmt.component.css'
 })
 export class PlantMgmtComponent implements OnInit {
