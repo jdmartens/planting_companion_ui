@@ -65,7 +65,16 @@ export class PlantMgmtComponent implements OnInit {
   }
 
   deletePlant(plant: Plant): void {
-    // Logic to delete the plant
-    console.log('Deleting plant:', plant);
+    if (confirm(`Are you sure you want to delete the plant "${plant.name}"?`)) {
+      this.plantService.deletePlant(plant.id!).subscribe({
+        next: () => {
+          console.log(`Plant "${plant.name}" deleted successfully.`);
+          this.fetchPlants(); // Refresh the list of plants
+        },
+        error: (error) => {
+          console.error(`Failed to delete plant "${plant.name}":`, error);
+        }
+      });
+    }
   }
 }
