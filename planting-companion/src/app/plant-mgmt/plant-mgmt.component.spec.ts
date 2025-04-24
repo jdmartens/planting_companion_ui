@@ -9,8 +9,28 @@ describe('PlantMgmtComponent', () => {
   let mockPlantService: jasmine.SpyObj<PlantService>;
 
   const mockPlants = [
-    { id: 1, name: 'Tomato', cultivar: 'Cherry', quantity: 10 },
-    { id: 2, name: 'Carrot', cultivar: 'Nantes', quantity: 20 },
+    {
+      id: 1,
+      name: 'Tomato',
+      cultivar: 'Cherry',
+      quantity: 10,
+      date: '2025-04-01',
+      location: 'Greenhouse',
+      notes: 'Water daily',
+      days_to_germ: 7,
+      days_to_maturity: 60,
+    },
+    {
+      id: 2,
+      name: 'Carrot',
+      cultivar: 'Nantes',
+      quantity: 20,
+      date: '2025-04-02',
+      location: 'Garden Bed',
+      notes: 'Thin seedlings after germination',
+      days_to_germ: 10,
+      days_to_maturity: 75,
+    },
   ];
 
   beforeEach(async () => {
@@ -74,18 +94,37 @@ describe('PlantMgmtComponent', () => {
   });
 
   it('should save a new plant', () => {
-    const newPlant = { name: 'Lettuce', cultivar: 'Romaine', quantity: 15 };
+    const newPlant = {
+      name: 'Lettuce',
+      cultivar: 'Romaine',
+      quantity: 15,
+      date: '2025-04-03',
+      location: 'Garden Bed',
+      notes: 'Plant in partial shade',
+      days_to_germ: 5,
+      days_to_maturity: 45,
+    };
     mockPlantService.createPlant.and.returnValue(of(newPlant));
-
+  
     component.savePlant(newPlant);
-
+  
     expect(mockPlantService.createPlant).toHaveBeenCalledWith(newPlant);
     expect(mockPlantService.getPlants).toHaveBeenCalled();
     expect(component.isDialogOpen).toBeFalse();
   });
 
   it('should update an existing plant', () => {
-    const updatedPlant = { id: 1, name: 'Tomato', cultivar: 'Cherry', quantity: 12 };
+    const updatedPlant = {
+      id: 1,
+      name: 'Lettuce',
+      cultivar: 'Romaine',
+      quantity: 15,
+      date: '2025-04-03',
+      location: 'Garden Bed',
+      notes: 'Plant in partial shade',
+      days_to_germ: 5,
+      days_to_maturity: 45,
+    };
     mockPlantService.updatePlant.and.returnValue(of(updatedPlant));
 
     component.savePlant(updatedPlant);
