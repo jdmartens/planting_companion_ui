@@ -34,10 +34,8 @@
     </table>
   </div>
 
-
-  <!-- DaisyUI Modal -->
   @if (isDialogOpen) {
-    <div class="modal modal-open" [attr.data-theme]="themeService.getCurrentTheme()">
+    <div class="modal modal-open">
       <div class="modal-box">
         <app-user
           [title]="dialogData.title"
