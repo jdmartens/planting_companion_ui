@@ -1,29 +1,58 @@
-<h2 class="text-xl font-bold mb-4">{{ title }}</h2>
+<div class="p-6 bg-base-100 rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-6 text-center">{{ title }}</h2>
 
-<form>
-  <div class="form-control mb-4">
-    <label class="label">
-      <span class="label-text">Name</span>
-    </label>
-    <input type="text" class="input input-bordered" [(ngModel)]="plant.name" />
-  </div>
+  <form>
+    <div class="form-control mb-4">
+      <label class="label">
+        <span class="label-text font-semibold">Name</span>
+      </label>
+      <input
+        type="text"
+        class="input input-bordered w-full"
+        placeholder="Enter plant name"
+        [(ngModel)]="plant.name"
+      />
+    </div>
 
-  <div class="form-control mb-4">
-    <label class="label">
-      <span class="label-text">Cultivar</span>
-    </label>
-    <input type="text" class="input input-bordered" [(ngModel)]="plant.cultivar" />
-  </div>
+    <div class="form-control mb-4">
+      <label class="label">
+        <span class="label-text font-semibold">Cultivar</span>
+      </label>
+      <input
+        type="text"
+        class="input input-bordered w-full"
+        placeholder="Enter plant cultivar"
+        [(ngModel)]="plant.cultivar"
+      />
+    </div>
 
-  <div class="form-control mb-4">
-    <label class="label">
-      <span class="label-text">Quantity</span>
-    </label>
-    <input type="number" class="input input-bordered" [(ngModel)]="plant.quantity" />
-  </div>
+    <div class="form-control mb-4">
+      <label class="label">
+        <span class="label-text font-semibold">Quantity</span>
+      </label>
+      <input
+        type="number"
+        class="input input-bordered w-full"
+        placeholder="Enter quantity"
+        [(ngModel)]="plant.quantity"
+      />
+    </div>
 
-  <div class="modal-action">
-    <button type="button" class="btn btn-primary" (click)="onSave()">Save</button>
-    <button type="button" class="btn" (click)="onCancel()">Cancel</button>
-  </div>
-</form>
+    <div class="modal-action flex justify-end space-x-4">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="onSave()"
+      >
+        Save
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="onCancel()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
