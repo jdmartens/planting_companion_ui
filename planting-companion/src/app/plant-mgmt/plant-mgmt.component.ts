@@ -18,6 +18,10 @@ export class PlantMgmtComponent implements OnInit {
   dialogData: { title: string; plant?: Plant } = { title: '' };
   confirmationData: { message: string; plant?: Plant } = { message: '' };
 
+  // Toast state
+  toastMessage: string = '';
+  showToast: boolean = false;
+  
   constructor(private plantService: PlantService) {}
 
   ngOnInit(): void {
@@ -89,15 +93,27 @@ export class PlantMgmtComponent implements OnInit {
     if (plant) {
       this.plantService.deletePlant(plant.id!).subscribe({
         next: () => {
+          this.showToastMessage(`Plant "${plant.name}" deleted successfully.`);
           console.log(`Plant "${plant.name}" deleted successfully.`);
           this.fetchPlants(); // Refresh the list of plants
           this.closeConfirmationDialog();
         },
         error: (error) => {
+          this.showToastMessage(`Failed to delete plant "${plant.name}".`);
           console.error(`Failed to delete plant "${plant.name}":`, error);
           this.closeConfirmationDialog();
         },
       });
     }
+  }
+
+  showToastMessage(message: string): void {
+    this.toastMessage = message;
+    this.showToast = true;
+
+    // Automatically hide the toast after 3 seconds
+    setTimeout(() => {
+      this.showToast = false;
+    }, 3000);
   }
 }

@@ -71,4 +71,12 @@
       (cancel)="closeConfirmationDialog()"
     ></app-confirmation-dialog>
   }
+
+  @if (showToast) {
+    <div class="toast toast-top toast-end">
+      <div class="alert alert-info">
+        <span>{{ toastMessage }}</span>
+      </div>
+    </div>
+  }
 </div>
