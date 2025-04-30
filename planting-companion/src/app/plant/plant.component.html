@@ -72,18 +72,6 @@
 
     <div class="form-control mb-4">
       <label class="label">
-        <span class="label-text font-semibold">Days to Germination</span>
-      </label>
-      <input
-        type="number"
-        class="input input-bordered w-full"
-        placeholder="Enter days to germination"
-        formControlName="days_to_germ"
-      />
-    </div>
-
-    <div class="form-control mb-4">
-      <label class="label">
         <span class="label-text font-semibold">Life Cycle</span>
       </label>
       <select
@@ -99,17 +87,31 @@
       }
     </div>
 
-    <div class="form-control mb-4">
-      <label class="label">
-        <span class="label-text font-semibold">Days to Maturity</span>
-      </label>
-      <input
-        type="number"
-        class="input input-bordered w-full"
-        placeholder="Enter days to maturity"
-        formControlName="days_to_maturity"
-      />
-    </div>
+    @if (plantForm.get('life_cycle')?.value !== 'perennial') {
+      <div class="form-control mb-4">
+        <label class="label">
+          <span class="label-text font-semibold">Days to Germination</span>
+        </label>
+        <input
+          type="number"
+          class="input input-bordered w-full"
+          placeholder="Enter days to germination"
+          formControlName="days_to_germ"
+        />
+      </div>
+
+      <div class="form-control mb-4">
+        <label class="label">
+          <span class="label-text font-semibold">Days to Maturity</span>
+        </label>
+        <input
+          type="number"
+          class="input input-bordered w-full"
+          placeholder="Enter days to maturity"
+          formControlName="days_to_maturity"
+        />
+      </div>
+    }
 
     <div class="form-control mb-4">
       <label class="label">
