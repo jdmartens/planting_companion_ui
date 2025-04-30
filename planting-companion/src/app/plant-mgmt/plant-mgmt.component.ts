@@ -20,6 +20,7 @@ export class PlantMgmtComponent implements OnInit {
 
   // Toast state
   toastMessage: string = '';
+  toastType: 'success' | 'error' = 'success'; // Add toastType to determine the style
   showToast: boolean = false;
   
   constructor(private plantService: PlantService) {}
@@ -93,13 +94,13 @@ export class PlantMgmtComponent implements OnInit {
     if (plant) {
       this.plantService.deletePlant(plant.id!).subscribe({
         next: () => {
-          this.showToastMessage(`Plant "${plant.name}" deleted successfully.`);
+          this.showToastMessage(`Plant "${plant.name}" deleted successfully.`, 'success');
           console.log(`Plant "${plant.name}" deleted successfully.`);
           this.fetchPlants(); // Refresh the list of plants
           this.closeConfirmationDialog();
         },
         error: (error) => {
-          this.showToastMessage(`Failed to delete plant "${plant.name}".`);
+          this.showToastMessage(`Failed to delete plant "${plant.name}".`, 'error');
           console.error(`Failed to delete plant "${plant.name}":`, error);
           this.closeConfirmationDialog();
         },
@@ -107,8 +108,9 @@ export class PlantMgmtComponent implements OnInit {
     }
   }
 
-  showToastMessage(message: string): void {
+  showToastMessage(message: string, type: 'success' | 'error'): void {
     this.toastMessage = message;
+    this.toastType = type;
     this.showToast = true;
 
     // Automatically hide the toast after 3 seconds

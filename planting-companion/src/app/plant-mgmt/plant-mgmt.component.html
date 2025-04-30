@@ -74,7 +74,7 @@
 
   @if (showToast) {
     <div class="toast toast-top toast-end">
-      <div class="alert alert-info">
+      <div class="alert" [ngClass]="toastType === 'success' ? 'alert-success' : 'alert-error'">
         <span>{{ toastMessage }}</span>
       </div>
     </div>
