@@ -1,7 +1,7 @@
 <div class="p-6 bg-base-100 rounded-lg shadow-md">
   <h2 class="text-2xl font-bold mb-6 text-center">{{ title }}</h2>
 
-  <form>
+  <form [formGroup]="plantForm">
     <div class="form-control mb-4">
       <label class="label">
         <span class="label-text font-semibold">Name</span>
@@ -10,8 +10,11 @@
         type="text"
         class="input input-bordered w-full"
         placeholder="Enter plant name"
-        [(ngModel)]="plant.name"
+        formControlName="name"
       />
+      @if (plantForm.get('name')?.invalid && plantForm.get('name')?.touched) {
+        <div class="text-error">Name is required.</div>
+      }
     </div>
 
     <div class="form-control mb-4">
@@ -22,8 +25,11 @@
         type="text"
         class="input input-bordered w-full"
         placeholder="Enter plant cultivar"
-        [(ngModel)]="plant.cultivar"
+        formControlName="cultivar"
       />
+      @if (plantForm.get('cultivar')?.invalid && plantForm.get('cultivar')?.touched) {
+        <div class="text-error">Cultivar is required.</div>
+      }
     </div>
 
     <div class="form-control mb-4">
@@ -34,7 +40,68 @@
         type="number"
         class="input input-bordered w-full"
         placeholder="Enter quantity"
-        [(ngModel)]="plant.quantity"
+        formControlName="quantity"
+      />
+      @if (plantForm.get('quantity')?.invalid && plantForm.get('quantity')?.touched) {
+        <div class="text-error">Quantity must be at least 1.</div>
+      }
+    </div>
+
+    <div class="form-control mb-4">
+      <label class="label">
+        <span class="label-text font-semibold">Date</span>
+      </label>
+      <input
+        type="date"
+        class="input input-bordered w-full"
+        formControlName="date"
+      />
+    </div>
+
+    <div class="form-control mb-4">
+      <label class="label">
+        <span class="label-text font-semibold">Location</span>
+      </label>
+      <input
+        type="text"
+        class="input input-bordered w-full"
+        placeholder="Enter location"
+        formControlName="location"
+      />
+    </div>
+
+    <div class="form-control mb-4">
+      <label class="label">
+        <span class="label-text font-semibold">Notes</span>
+      </label>
+      <textarea
+        class="textarea textarea-bordered w-full"
+        placeholder="Enter notes"
+        formControlName="notes"
+      ></textarea>
+    </div>
+
+    <div class="form-control mb-4">
+      <label class="label">
+        <span class="label-text font-semibold">Days to Germination</span>
+      </label>
+      <input
+        type="number"
+        class="input input-bordered w-full"
+        placeholder="Enter days to germination"
+        formControlName="days_to_germ"
+      />
+    </div>
+
+    <div class="form-control mb-4">
+      <label class="label">
+        <span class="label-text font-semibold">Days to Maturity</span>
+      </label>
+      <input
+        type="number"
+        class="input input-bordered w-full"
+        placeholder="Enter days to maturity"
+        formControlName="days_to_maturity"
       />
     </div>
 
@@ -42,6 +109,7 @@
       <button
         type="button"
         class="btn btn-primary"
+        [disabled]="plantForm.invalid"
         (click)="onSave()"
       >
         Save
