@@ -1,1 +1,9 @@
-<p>confirmation-dialog works!</p>
+<div class="modal modal-open">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">{{ message }}</h3>
+    <div class="modal-action flex justify-end space-x-4">
+      <button class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+      <button class="btn btn-error" (click)="onConfirm()">{{ deleteButtonText }}</button>
+    </div>
+  </div>
+</div>

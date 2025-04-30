@@ -1,11 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-confirmation-dialog',
-  imports: [],
   templateUrl: './confirmation-dialog.component.html',
-  styleUrl: './confirmation-dialog.component.css'
+  styleUrls: ['./confirmation-dialog.component.css'],
+  standalone: true,
 })
 export class ConfirmationDialogComponent {
+  @Input() message: string = 'Are you sure?'; // Confirmation message
+  @Input() deleteButtonText: string = 'Delete'; // Optional delete button text
+  @Output() confirm = new EventEmitter<void>(); // Emit when confirmed
+  @Output() cancel = new EventEmitter<void>(); // Emit when canceled
 
+  onConfirm(): void {
+    this.confirm.emit();
+  }
+
+  onCancel(): void {
+    this.cancel.emit();
+  }
 }
