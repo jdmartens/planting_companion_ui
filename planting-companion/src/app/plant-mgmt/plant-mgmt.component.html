@@ -25,7 +25,7 @@
               <td>{{ plant.cultivar }}</td>
               <td>{{ plant.quantity }}</td>
               <td>
-                <div class="dropdown dropdown-end">
+                <div class="dropdown dropdown-end" [ngClass]="{'dropdown-top': isLastRow(plants, plant)}">
                   <button tabindex="0" class="btn btn-ghost btn-circle">
                     <!-- Kabob (three dots) SVG icon -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -34,10 +34,14 @@
                       <circle cx="18" cy="12" r="1.5" />
                     </svg>
                   </button>
-                  <div class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-28 overflow-y-auto max-h-48">
-                    <li><a (click)="openEditDialog(plant)">Edit</a></li>
-                    <li><a (click)="deletePlant(plant)">Delete</a></li>
-                  </div>
+                  <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-28">
+                    <li>
+                      <a (click)="openEditDialog(plant)">Edit</a>
+                    </li>
+                    <li>
+                      <a (click)="deletePlant(plant)">Delete</a>
+                    </li>
+                  </ul>
                 </div>
               </td>
             </tr>

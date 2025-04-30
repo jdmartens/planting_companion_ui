@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PlantService, Plant } from '../core/plant.service';
 import { PlantComponent } from '../plant/plant.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-plant-mgmt',
   templateUrl: './plant-mgmt.component.html',
-  imports: [PlantComponent],
+  imports: [PlantComponent, CommonModule],
   styleUrl: './plant-mgmt.component.css'
 })
 export class PlantMgmtComponent implements OnInit {
@@ -46,6 +47,10 @@ export class PlantMgmtComponent implements OnInit {
 
   closeDialog(): void {
     this.isDialogOpen = false;
+  }
+
+  isLastRow(plants: Plant[], plant: Plant): boolean {
+    return plants.indexOf(plant) === plants.length - 1;
   }
 
   savePlant(plant: Plant): void {
