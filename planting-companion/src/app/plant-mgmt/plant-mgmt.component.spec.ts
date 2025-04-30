@@ -134,23 +134,37 @@ describe('PlantMgmtComponent', () => {
     expect(component.isDialogOpen).toBeFalse();
   });
 
-  it('should delete a plant', () => {
-    spyOn(window, 'confirm').and.returnValue(true); // Simulate user confirming the deletion
+  it('should delete a plant after confirmation', () => {
     const plantToDelete = mockPlants[0];
+    component.openConfirmationDialog(plantToDelete);
+  
+    expect(component.confirmationData).toEqual({
+      message: `Are you sure you want to delete the plant "${plantToDelete.name}"?`,
+      plant: plantToDelete,
+    });
+    expect(component.isConfirmationDialogOpen).toBeTrue();
+  
     mockPlantService.deletePlant.and.returnValue(of(undefined));
-
-    component.deletePlant(plantToDelete);
-
+    component.confirmDelete();
+  
     expect(mockPlantService.deletePlant).toHaveBeenCalledWith(plantToDelete.id);
     expect(mockPlantService.getPlants).toHaveBeenCalled();
+    expect(component.isConfirmationDialogOpen).toBeFalse();
   });
 
-  it('should not delete a plant if user cancels', () => {
-    spyOn(window, 'confirm').and.returnValue(false); // Simulate user canceling the deletion
+  it('should not delete a plant if deletion is canceled', () => {
     const plantToDelete = mockPlants[0];
-
-    component.deletePlant(plantToDelete);
-
+    component.openConfirmationDialog(plantToDelete);
+  
+    expect(component.confirmationData).toEqual({
+      message: `Are you sure you want to delete the plant "${plantToDelete.name}"?`,
+      plant: plantToDelete,
+    });
+    expect(component.isConfirmationDialogOpen).toBeTrue();
+  
+    component.closeConfirmationDialog();
+  
     expect(mockPlantService.deletePlant).not.toHaveBeenCalled();
+    expect(component.isConfirmationDialogOpen).toBeFalse();
   });
 });
