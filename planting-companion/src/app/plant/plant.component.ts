@@ -20,6 +20,7 @@ export class PlantComponent implements OnChanges {
   constructor(private fb: FormBuilder) {
     // Initialize the form
     this.plantForm = this.fb.group({
+      id: [null],
       name: ['', Validators.required],
       cultivar: ['', Validators.required],
       quantity: [0, [Validators.required, Validators.min(1)]],
