@@ -17,6 +17,12 @@ export class PlantComponent implements OnChanges {
 
   plantForm: FormGroup;
 
+  lifeCycleOptions = [
+    { value: 'annual', display: 'Annual' },
+    { value: 'perennial', display: 'Perennial' },
+    { value: 'biennial', display: 'Biennial' },
+  ];
+
   constructor(private fb: FormBuilder) {
     // Initialize the form
     this.plantForm = this.fb.group({
@@ -29,6 +35,7 @@ export class PlantComponent implements OnChanges {
       notes: [''],
       days_to_germ: [0, Validators.min(0)],
       days_to_maturity: [0, Validators.min(0)],
+      life_cycle: ['annual', Validators.required]
     });
   }
 

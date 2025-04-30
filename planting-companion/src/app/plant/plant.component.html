@@ -95,6 +95,23 @@
 
     <div class="form-control mb-4">
       <label class="label">
+        <span class="label-text font-semibold">Life Cycle</span>
+      </label>
+      <select
+        class="select select-bordered w-full"
+        formControlName="life_cycle"
+      >
+        <option value="annual">Annual</option>
+        <option value="perennial">Perennial</option>
+        <option value="biennial">Biennial</option>
+      </select>
+      @if (plantForm.get('life_cycle')?.invalid && plantForm.get('life_cycle')?.touched) {
+        <div class="text-error">Life Cycle is required.</div>
+      }
+    </div>
+
+    <div class="form-control mb-4">
+      <label class="label">
         <span class="label-text font-semibold">Days to Maturity</span>
       </label>
       <input
