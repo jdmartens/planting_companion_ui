@@ -2,18 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { PlantService, Plant } from '../core/plant.service';
 import { PlantComponent } from '../plant/plant.component';
 import { CommonModule } from '@angular/common';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-plant-mgmt',
   templateUrl: './plant-mgmt.component.html',
-  imports: [PlantComponent, CommonModule],
+  imports: [PlantComponent, CommonModule, ConfirmationDialogComponent],
   styleUrl: './plant-mgmt.component.css'
 })
 export class PlantMgmtComponent implements OnInit {
   plants: Plant[] = [];
   loading: boolean = false;
   isDialogOpen: boolean = false;
+  isConfirmationDialogOpen: boolean = false;
   dialogData: { title: string; plant?: Plant } = { title: '' };
+  confirmationData: { message: string; plant?: Plant } = { message: '' };
 
   constructor(private plantService: PlantService) {}
 
@@ -69,16 +72,31 @@ export class PlantMgmtComponent implements OnInit {
     }
   }
 
-  deletePlant(plant: Plant): void {
-    if (confirm(`Are you sure you want to delete the plant "${plant.name}"?`)) {
+  openConfirmationDialog(plant: Plant): void {
+    this.confirmationData = {
+      message: `Are you sure you want to delete the plant "${plant.name}"?`,
+      plant,
+    };
+    this.isConfirmationDialogOpen = true;
+  }
+
+  closeConfirmationDialog(): void {
+    this.isConfirmationDialogOpen = false;
+  }
+
+  confirmDelete(): void {
+    const plant = this.confirmationData.plant;
+    if (plant) {
       this.plantService.deletePlant(plant.id!).subscribe({
         next: () => {
           console.log(`Plant "${plant.name}" deleted successfully.`);
           this.fetchPlants(); // Refresh the list of plants
+          this.closeConfirmationDialog();
         },
         error: (error) => {
           console.error(`Failed to delete plant "${plant.name}":`, error);
-        }
+          this.closeConfirmationDialog();
+        },
       });
     }
   }

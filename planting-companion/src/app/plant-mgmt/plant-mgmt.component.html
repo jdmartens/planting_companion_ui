@@ -39,7 +39,7 @@
                       <a (click)="openEditDialog(plant)">Edit</a>
                     </li>
                     <li>
-                      <a (click)="deletePlant(plant)">Delete</a>
+                      <a (click)="openConfirmationDialog(plant)">Delete</a>
                     </li>
                   </ul>
                 </div>
@@ -62,5 +62,13 @@
       </div>
       <div class="modal-backdrop" (click)="closeDialog()"></div>
     </div>
+  }
+
+  @if (isConfirmationDialogOpen) {
+    <app-confirmation-dialog
+      [message]="confirmationData.message"
+      (confirm)="confirmDelete()"
+      (cancel)="closeConfirmationDialog()"
+    ></app-confirmation-dialog>
   }
 </div>
