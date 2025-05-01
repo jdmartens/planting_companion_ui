@@ -72,6 +72,7 @@ export class UserSettingsComponent implements OnInit {
     if (result) {
       this.userService.updateMe(result).subscribe({
         next: (updatedUser) => {
+          this.userProfile = updatedUser;
           this.toasted = true;
           setTimeout(() => {
             this.toasted = false;
