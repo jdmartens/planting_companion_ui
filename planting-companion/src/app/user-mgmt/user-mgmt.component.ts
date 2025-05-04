@@ -47,7 +47,7 @@ export class UserMgmtComponent implements OnInit {
   }
 
   editUser(user: User): void {
-    this.dialogData = { title: 'Edit User'  };
+    this.dialogData = { 'title': 'Edit User', 'user': user };
     this.isDialogOpen = true;
   }
 
