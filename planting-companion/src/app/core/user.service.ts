@@ -22,7 +22,7 @@ export class UserService {
   private readonly apiUrl = environment.apiUrl;
 
   getUsers(): Observable<UserResponse> {
-    return this.http.get<UserResponse>(`${this.apiUrl}/users`);
+    return this.http.get<UserResponse>(`${this.apiUrl}/users/`);
   }
 
   createUser(user: Partial<User>): Observable<User> {
