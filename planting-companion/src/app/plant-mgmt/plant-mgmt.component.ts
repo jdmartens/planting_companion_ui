@@ -3,11 +3,12 @@ import { PlantService, Plant } from '../core/plant.service';
 import { PlantComponent } from '../plant/plant.component';
 import { CommonModule } from '@angular/common';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-plant-mgmt',
   templateUrl: './plant-mgmt.component.html',
-  imports: [PlantComponent, CommonModule, ConfirmationDialogComponent],
+  imports: [PlantComponent, CommonModule, RouterModule, ConfirmationDialogComponent],
   styleUrl: './plant-mgmt.component.css'
 })
 export class PlantMgmtComponent implements OnInit {
