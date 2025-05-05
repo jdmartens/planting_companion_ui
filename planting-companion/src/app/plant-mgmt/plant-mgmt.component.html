@@ -21,7 +21,12 @@
           @for (plant of plants; track plant.id) {
             <tr>
               <th>{{ plants.indexOf(plant) + 1 }}</th>
-              <td>{{ plant.name }}</td>
+              <a
+                [routerLink]="['/plants', plant.id]"
+                class="text-blue-500 hover:underline"
+              >
+                {{ plant.name }}
+              </a>
               <td>{{ plant.cultivar }}</td>
               <td>{{ plant.quantity }}</td>
               <td>
