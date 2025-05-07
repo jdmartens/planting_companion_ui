@@ -1,10 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { PlantService, Plant } from '../core/plant.service';
 
 @Component({
   selector: 'app-plant-detail',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './plant-detail.component.html',
   styleUrl: './plant-detail.component.css'
 })
