@@ -35,11 +35,11 @@ export class PlantService {
 
   /**
    * Fetches a single plant by ID.
-   * @param id The ID of the plant to fetch.
+   * @param uid The UID of the plant to fetch.
    * @returns An Observable containing the plant data.
    */
-  getPlant(id: number): Observable<Plant> {
-    return this.http.get<Plant>(`${this.apiUrl}${id}`);
+  getPlant(uid: string): Observable<Plant> {
+    return this.http.get<Plant>(`${this.apiUrl}${uid}`);
   }
 
   /**
