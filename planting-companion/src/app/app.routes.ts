@@ -5,7 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LogoutComponent } from './logout/logout.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { PlantMgmtComponent } from './plant-mgmt/plant-mgmt.component';
-import { PlantDetailsComponent } from './plant-details/plant-details.component';
+import { PlantDetailComponent } from './plant-details/plant-detail.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -14,5 +14,5 @@ export const routes: Routes = [
   { path: 'settings', component: UserSettingsComponent },
   { path: 'admin', component: UserMgmtComponent },
   { path: 'plants', component: PlantMgmtComponent },
-  { path: 'plants/:uid', component: PlantDetailsComponent },
+  { path: 'plants/:uid', component: PlantDetailComponent },
 ];
