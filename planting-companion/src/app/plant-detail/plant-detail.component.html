@@ -26,4 +26,18 @@
       <p>Plant not found.</p>
     }
   }
+
+  @if (isDialogOpen) {
+    <div class="modal modal-open">
+      <div class="modal-box">
+        <app-plant
+          [title]="dialogData.title"
+          [plant]="dialogData.plant"
+          (save)="closeDialog($event)"
+          (cancel)="closeDialog()"
+        ></app-plant>
+      </div>
+      <div class="modal-backdrop" (click)="closeDialog()"></div>
+    </div>
+  }
 </div>
