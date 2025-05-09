@@ -5,7 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LogoutComponent } from './logout/logout.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { PlantMgmtComponent } from './plant-mgmt/plant-mgmt.component';
-import { PlantDetailComponent } from './plant-details/plant-detail.component';
+import { PlantDetailComponent } from './plant-detail/plant-detail.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
