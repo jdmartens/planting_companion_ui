@@ -18,7 +18,7 @@ export class PlantDetailComponent implements OnInit {
   plant: Plant | null = null; // Store the plant details
   loading: boolean = true; // Loading state
   isDialogOpen: boolean = false; // Track dialog state
-  dialogData: { title: string; plant?: Plant } = { title: '' }; // Data for the dialog
+  dialogData: { title: string; plant: Plant | null } = { title: '', plant: null };
 
   ngOnInit(): void {
     // Get the UID from the route and fetch the plant details
