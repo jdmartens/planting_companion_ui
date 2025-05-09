@@ -22,6 +22,8 @@
       <p><strong>Notes:</strong> {{ plant.notes }}</p>
       <p><strong>Days to Germination:</strong> {{ plant.days_to_germ }}</p>
       <p><strong>Days to Maturity:</strong> {{ plant.days_to_maturity }}</p>
+      
+      <button class="btn btn-primary mt-4" (click)="openEditDialog()">Edit</button>
     } @else {
       <p>Plant not found.</p>
     }
